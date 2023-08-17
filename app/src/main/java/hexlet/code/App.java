@@ -27,13 +27,13 @@ public class App implements Callable {
     private String format = "stylish";
 
     @Override
-    public String call() throws IOException {
+    public String call() throws Exception {
 
-        System.out.println(file1.toPath());
-        System.out.println(file2.toPath());
-
-        System.out.println(file1.getAbsolutePath());
-        System.out.println(file2.getAbsolutePath());
+//        System.out.println(file1.toPath());
+//        System.out.println(file2.toPath());
+//
+//        System.out.println(file1.getAbsolutePath());
+//        System.out.println(file2.getAbsolutePath());
 
         Path path1 = Paths.get(file1.getAbsolutePath());
         Path path2 = Paths.get(file2.getAbsolutePath());
@@ -41,20 +41,17 @@ public class App implements Callable {
         String contentOfJSONFile1 = Files.readString(path1);
         String contentOfJSONFile2 = Files.readString(path2);
 
-        System.out.println(contentOfJSONFile1);
-        System.out.println(contentOfJSONFile2);
+//        System.out.println(contentOfJSONFile1);
+//        System.out.println(contentOfJSONFile2);
+
+        Differ.generate(contentOfJSONFile1, contentOfJSONFile2);
         // The business logic of the command goes here...
         // In this case, code for generation of ASCII art graphics
         // (omitted for the sake of brevity).
-        return new String();
+        return "";
     }
 
     public static void main(String[] args) throws Exception{
-
-//        Path pathToJSONFile1 = Paths.get(file1).toAbsolutePath().normalize();
-//        Path pathToJSONFile2 = Paths.get(file2).toAbsolutePath().normalize();
-
-
 
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
