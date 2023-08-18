@@ -26,29 +26,32 @@ public class Differ {
         List<String> sortedList = new ArrayList<>(controlSet);
         Collections.sort(sortedList);
 
+        return buildJsonDiff(sortedList, jsonMap1, jsonMap2);
+    }
+
+    public static String buildJsonDiff(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {
         StringBuilder stylishOutput = new StringBuilder();
         stylishOutput.append("{\n");
 
-        for (String key : sortedList) {
-            if (jsonMap1.containsKey(key) && !jsonMap2.containsKey(key)) {
-                stylishOutput.append(String.format("- %s: %s\n", key, jsonMap1.get(key)));
+        for (String key : list) {
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                stylishOutput.append(String.format("- %s: %s\n", key, map1.get(key)));
                 continue;
             }
-            if (!jsonMap1.containsKey(key) && jsonMap2.containsKey(key)) {
-                stylishOutput.append(String.format("+ %s: %s\n", key, jsonMap2.get(key)));
+            if (!map1.containsKey(key) && map2.containsKey(key)) {
+                stylishOutput.append(String.format("+ %s: %s\n", key, map2.get(key)));
                 continue;
             }
-            if (jsonMap2.containsKey(key) && jsonMap2.containsKey(key)) {
-                if (jsonMap1.get(key).equals(jsonMap2.get(key))) {
-                    stylishOutput.append(String.format("  %s: %s\n", key, jsonMap1.get(key)));
+            if (map2.containsKey(key) && map2.containsKey(key)) {
+                if (map1.get(key).equals(map2.get(key))) {
+                    stylishOutput.append(String.format("  %s: %s\n", key, map1.get(key)));
                 } else {
-                    stylishOutput.append(String.format("- %s: %s\n", key, jsonMap1.get(key)));
-                    stylishOutput.append(String.format("+ %s: %s\n", key, jsonMap2.get(key)));
+                    stylishOutput.append(String.format("- %s: %s\n", key, map1.get(key)));
+                    stylishOutput.append(String.format("+ %s: %s\n", key, map2.get(key)));
                 }
             }
         }
         stylishOutput.append("}");
-
         return stylishOutput.toString();
     }
 }
