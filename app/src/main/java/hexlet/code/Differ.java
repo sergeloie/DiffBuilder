@@ -31,39 +31,19 @@ public class Differ {
 
         for (String key : sortedList) {
             if (jsonMap1.containsKey(key) && !jsonMap2.containsKey(key)) {
-                stylishOutput.append("- ");
-                stylishOutput.append(key);
-                stylishOutput.append(": ");
-                stylishOutput.append(jsonMap1.get(key));
-                stylishOutput.append("\n");
+                stylishOutput.append(String.format("- %s: %s\n", key, jsonMap1.get(key)));
                 continue;
             }
             if (!jsonMap1.containsKey(key) && jsonMap2.containsKey(key)) {
-                stylishOutput.append("+ ");
-                stylishOutput.append(key);
-                stylishOutput.append(": ");
-                stylishOutput.append(jsonMap2.get(key));
-                stylishOutput.append("\n");
+                stylishOutput.append(String.format("+ %s: %s\n", key, jsonMap2.get(key)));
                 continue;
             }
             if (jsonMap2.containsKey(key) && jsonMap2.containsKey(key)) {
                 if (jsonMap1.get(key).equals(jsonMap2.get(key))) {
-                    stylishOutput.append("  ");
-                    stylishOutput.append(key);
-                    stylishOutput.append(": ");
-                    stylishOutput.append(jsonMap1.get(key));
-                    stylishOutput.append("\n");
+                    stylishOutput.append(String.format("  %s: %s\n", key, jsonMap1.get(key)));
                 } else {
-                    stylishOutput.append("- ");
-                    stylishOutput.append(key);
-                    stylishOutput.append(": ");
-                    stylishOutput.append(jsonMap1.get(key));
-                    stylishOutput.append("\n");
-                    stylishOutput.append("+ ");
-                    stylishOutput.append(key);
-                    stylishOutput.append(": ");
-                    stylishOutput.append(jsonMap2.get(key));
-                    stylishOutput.append("\n");
+                    stylishOutput.append(String.format("- %s: %s\n", key, jsonMap1.get(key)));
+                    stylishOutput.append(String.format("+ %s: %s\n", key, jsonMap2.get(key)));
                 }
             }
         }
