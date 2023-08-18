@@ -14,17 +14,14 @@ jobs:
         with:
           java-version: '20'
           distribution: 'temurin'
-      - uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.2.1
-          arguments: build
-          build-root-directory: app
-      - run: app/gradlew checkstyleMain
-      - run: app/gradlew test
-      - uses: paambaati/codeclimate-action@v3.0.0
+      - name: Build
+        run: make build
+      - name: Publish code coverage
+        uses: paambaati/codeclimate-action@v3.2.0
         env:
           CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
           JACOCO_SOURCE_PATH: app/src/main/java
         with:
           coverageCommand: make report
+          debug: true
           coverageLocations: ${{github.workspace}}app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
