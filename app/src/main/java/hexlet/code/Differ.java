@@ -4,12 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Differ {
 
@@ -21,10 +18,16 @@ public class Differ {
         Map<String, Object> jsonMap2 = objectMapper.readValue(json2, new TypeReference<>() {
         });
 
-        Set<String> controlSet = jsonMap1.keySet().stream().collect(Collectors.toSet());
-        controlSet.addAll(jsonMap2.keySet().stream().collect(Collectors.toSet()));
-        List<String> sortedList = new ArrayList<>(controlSet);
-        Collections.sort(sortedList);
+//        Set<String> controlSet = jsonMap1.keySet().stream().collect(Collectors.toSet());
+//        controlSet.addAll(jsonMap2.keySet().stream().collect(Collectors.toSet()));
+//        List<String> sortedList = new ArrayList<>(controlSet);
+//        Collections.sort(sortedList);
+
+        List<String> sortedList = Stream.concat(
+                jsonMap1.keySet().stream(), jsonMap2.keySet().stream())
+                .distinct()
+                .sorted()
+                .toList();
 
         return buildJsonDiff(sortedList, jsonMap1, jsonMap2);
     }
@@ -32,6 +35,8 @@ public class Differ {
     public static String buildJsonDiff(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {
         StringBuilder stylishOutput = new StringBuilder();
         stylishOutput.append("{\n");
+
+
 
         for (String key : list) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
