@@ -26,14 +26,16 @@ public class App implements Callable {
     @Override
     public String call() throws Exception {
 
-        Path path1 = Paths.get(file1.getAbsolutePath());
-        Path path2 = Paths.get(file2.getAbsolutePath());
-
-        String contentOfJSONFile1 = Files.readString(path1);
-        String contentOfJSONFile2 = Files.readString(path2);
-
-        System.out.println(Differ.generate(contentOfJSONFile1, contentOfJSONFile2));
-        return Differ.generate(contentOfJSONFile1, contentOfJSONFile2);
+//        Path path1 = Paths.get(file1.getAbsolutePath());
+//        Path path2 = Paths.get(file2.getAbsolutePath());
+//
+//        String contentOfJSONFile1 = Files.readString(path1);
+//        String contentOfJSONFile2 = Files.readString(path2);
+//
+////        System.out.println(Differ.generate(contentOfJSONFile1, contentOfJSONFile2));
+////        return Differ.generate(contentOfJSONFile1, contentOfJSONFile2);
+        System.out.println(Differ.generateFromFiles(file1, file2));
+        return Differ.generateFromFiles(file1, file2);
     }
 
     public static void main(String[] args) throws Exception {

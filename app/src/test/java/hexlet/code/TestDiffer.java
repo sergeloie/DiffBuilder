@@ -45,4 +45,31 @@ public class TestDiffer {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testYAML() throws JsonProcessingException {
+        String yamlString1 = """
+                host: hexlet.io,
+                timeout: 50,
+                proxy: 123.234.53.22,
+                follow: false
+                """;
+
+        String yamlString2 = """
+                timeout: 20,
+                verbose: true,
+                host: hexlet.io""";
+        String expected = """
+                {
+                - follow: false
+                  host: hexlet.io
+                - proxy: 123.234.53.22
+                - timeout: 50
+                + timeout: 20
+                + verbose: true
+                }""";
+        String actual = Differ.generate(yamlString1, yamlString2);
+        assertEquals(expected, actual);
+
+    }
+
 }
