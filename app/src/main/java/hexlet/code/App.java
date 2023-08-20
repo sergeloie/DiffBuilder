@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -39,6 +41,8 @@ public class App implements Callable {
     }
 
     public static void main(String[] args) throws Exception {
+        String log4jConfPath = "log4j.properties";
+        PropertyConfigurator.configure(log4jConfPath);
 
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
