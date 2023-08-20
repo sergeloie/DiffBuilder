@@ -139,7 +139,7 @@ public class TestDiffer {
 
 
     @Test
-    public void testYamlFileToMap() throws IOException {
+    public void testYamlFileToMap() throws IOException, NullPointerException {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file1 = new File(classLoader.getResource("file1.yml").getFile());
         Map<String, Object> map1 = parseYAMLfileToMap(file1);
