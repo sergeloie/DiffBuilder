@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 //import org.assertj.core.api.Assert;
@@ -8,6 +9,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
 
 public class TestDiffer {
 
@@ -72,6 +75,13 @@ public class TestDiffer {
         String actual = Differ.generate(yamlString1, yamlString2);
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void testReadFileWithClassLoader() {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File file = new File(classLoader.getResource("file1.json").getFile());
+        assertTrue(file.exists());
     }
 
 }
