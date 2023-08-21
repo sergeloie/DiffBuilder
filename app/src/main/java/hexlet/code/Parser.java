@@ -9,24 +9,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
-import static hexlet.code.ParserJSON.parseJSONfileToMap;
-import static hexlet.code.ParserYAML.parseYAMLfileToMap;
+
+import static hexlet.code.ParserJSON.parseJSONfileToStringMap;
+import static hexlet.code.ParserYAML.parseYAMLfileToStringMap;
 
 public class Parser {
-
-    /**
-     * @param map1 Map<String, Object> for extraction keySet
-     * @param map2 Map<String, Object> for extraction keySet
-     * @return Sorted List<String> of unique keys
-     */
-    public static List<String> getListOfUniqueKeys(Map<String, Object> map1, Map<String, Object> map2) {
-
-        return Stream.concat(
-                map1.keySet().stream(), map2.keySet().stream())
-                .distinct()
-                .sorted()
-                .toList();
-    }
 
     public static List<String> getListOfUniqueStringKeys(Map<String, String> map1, Map<String, String> map2) {
 
@@ -56,16 +43,16 @@ public class Parser {
         return "UNEQUAL";
     }
 
-    public static Map<String, Object> parseAnyFileToMap(File anyFile) throws IOException {
+    public static Map<String, String> parseAnyFileToStringMap(File anyFile) throws IOException {
+
         String fileType = getFileType(anyFile);
 
         return switch (fileType) {
-            case ("application/json") -> parseJSONfileToMap(anyFile);
-            case ("text/x-yaml") -> parseYAMLfileToMap(anyFile);
-            default -> Collections.<String, Object>emptyMap();
+            case ("application/json") -> parseJSONfileToStringMap(anyFile);
+            case ("text/x-yaml") -> parseYAMLfileToStringMap(anyFile);
+            default -> Collections.<String, String>emptyMap();
         };
     }
-
 
     public static String getFileType(File file) throws IOException {
 

@@ -23,7 +23,6 @@ public class App implements Callable {
     @Override
     public String call() throws Exception {
 
-        System.out.println(Differ.generate(file1, file2));
         return Differ.generate(file1, file2);
     }
 
