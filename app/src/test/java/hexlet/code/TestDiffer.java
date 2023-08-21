@@ -11,6 +11,10 @@ import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class TestDiffer {
 
@@ -162,5 +166,17 @@ public class TestDiffer {
         assertEquals(expectedShort, generate(file1, file2));
         assertEquals(expectedShort, generate(file3, file4));
         assertEquals(expectedLong, generate(file11, file12));
+    }
+
+    @Test
+    public void testTree() {
+        List<String[]> testList = new ArrayList<>();
+        Map<String, String> testMap = new TreeMap<>();
+        testMap.put("alfa", "first");
+        testMap.put("charlie", "second");
+        testMap.put("zulu", "third");
+        testMap.put("bravo", "fourth");
+        testMap.put("bravo", "fifth");
+        System.out.println(testMap.toString());
     }
 }

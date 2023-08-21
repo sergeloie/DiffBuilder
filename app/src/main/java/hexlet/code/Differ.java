@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static hexlet.code.Parser.getListOfUniqueStringKeys;
 import static hexlet.code.Parser.parseAnyFileToStringMap;
@@ -47,4 +48,11 @@ public class Differ {
         output.append("}");
         return output.toString();
     }
+
+//    public static Map<String, String> buildCompareTree(List<String> list, Map<String, String> map1, Map<String, String> map2) {
+//        Map<String, String> resultMap = new TreeMap<>();
+//        for(String key: list) {
+//
+//        }
+//    }
 }
