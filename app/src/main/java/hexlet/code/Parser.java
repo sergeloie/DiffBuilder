@@ -1,44 +1,18 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
+import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static hexlet.code.ParserJSON.parseJSONfileToMap;
+import static hexlet.code.ParserYAML.parseYAMLfileToMap;
+
 public class Parser {
-
-    /**
-     * @param jsonString
-     * @return Map<String, Object> from parsed json String
-     * @throws JsonProcessingException
-     */
-    public static Map<String, Object> parseJSONstringToMap(String jsonString) throws JsonProcessingException {
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(jsonString, new TypeReference<>() {
-        });
-    }
-
-    /**
-     * @param jsonFile
-     * @return Map<String, Object> from parsed json File
-     * @throws IOException
-     */
-    public static Map<String, Object> parseJSONfileToMap(File jsonFile) throws IOException {
-
-        Path path = Paths.get(jsonFile.getAbsolutePath());
-        String contentOfJSONFile = Files.readString(path);
-        return parseJSONstringToMap(contentOfJSONFile);
-    }
 
     /**
      * @param map1 Map<String, Object> for extraction keySet
@@ -73,18 +47,20 @@ public class Parser {
         return "UNEQUAL";
     }
 
-    public static Map<String, Object> parseYAMLstringToMap(String yamlString) throws JsonProcessingException {
-        ObjectMapper mapper = new YAMLMapper();
-        return mapper.readValue(yamlString, new TypeReference<>() {
-        });
-    }
+    public static Map<String, Object> parseAnyFileToMap(File anyFile) throws IOException {
+        String fileType = getFileType(anyFile);
 
-    public static Map<String, Object> parseYAMLfileToMap(File yamlFile) throws IOException {
-
-        Path path = Paths.get(yamlFile.getAbsolutePath());
-        String contentOfYAMLFile = Files.readString(path);
-        return parseYAMLstringToMap(contentOfYAMLFile);
+        return switch (fileType) {
+            case ("application/json") -> parseJSONfileToMap(anyFile);
+            case ("text/x-yaml") -> parseYAMLfileToMap(anyFile);
+            default -> Collections.<String, Object>emptyMap();
+        };
     }
 
 
+    public static String getFileType(File file) throws IOException {
+
+        Tika defaultTika = new Tika();
+        return defaultTika.detect(file);
+    }
 }

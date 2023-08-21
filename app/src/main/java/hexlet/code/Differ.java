@@ -1,36 +1,22 @@
 package hexlet.code;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import static hexlet.code.Parser.*;
+import static hexlet.code.Parser.getListOfUniqueKeys;
+import static hexlet.code.Parser.parseAnyFileToMap;
 
 
 public class Differ {
 
-    public static String generate(String json1, String json2) throws JsonProcessingException {
+    public static String generate(File file1, File file2) throws IOException {
 
-        Map<String, Object> jsonMap1 = parseJSONstringToMap(json1);
-        Map<String, Object> jsonMap2 = parseJSONstringToMap(json2);
-
-        List<String> sortedList = getListOfUniqueKeys(jsonMap1, jsonMap2);
-
-        return buildJsonDiff(sortedList, jsonMap1, jsonMap2);
-    }
-
-    public static String generateFromFiles(File file1, File file2) throws IOException {
-        Map<String, Object> jsonMap1 = parseJSONfileToMap(file1);
-        Map<String, Object> jsonMap2 = parseJSONfileToMap(file2);
-
-        List<String> sortedList = getListOfUniqueKeys(jsonMap1, jsonMap2);
-
-        return buildJsonDiff(sortedList, jsonMap1, jsonMap2);
+        Map<String, Object> anyMap1 = parseAnyFileToMap(file1);
+        Map<String, Object> anyMap2 = parseAnyFileToMap(file2);
+        List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
+        return buildJsonDiff(sortedList, anyMap1, anyMap2);
     }
 
     public static String buildJsonDiff(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {

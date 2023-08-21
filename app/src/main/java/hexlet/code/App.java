@@ -1,17 +1,12 @@
 package hexlet.code;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.PropertyConfigurator;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.concurrent.Callable;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 @Command(name = "gendiff", version = "gendiff 1.0", mixinStandardHelpOptions = true)
 public class App implements Callable {
@@ -28,21 +23,11 @@ public class App implements Callable {
     @Override
     public String call() throws Exception {
 
-//        Path path1 = Paths.get(file1.getAbsolutePath());
-//        Path path2 = Paths.get(file2.getAbsolutePath());
-//
-//        String contentOfJSONFile1 = Files.readString(path1);
-//        String contentOfJSONFile2 = Files.readString(path2);
-//
-////        System.out.println(Differ.generate(contentOfJSONFile1, contentOfJSONFile2));
-////        return Differ.generate(contentOfJSONFile1, contentOfJSONFile2);
-        System.out.println(Differ.generateFromFiles(file1, file2));
-        return Differ.generateFromFiles(file1, file2);
+        System.out.println(Differ.generate(file1, file2));
+        return Differ.generate(file1, file2);
     }
 
     public static void main(String[] args) throws Exception {
-        String log4jConfPath = "log4j.properties";
-        PropertyConfigurator.configure(log4jConfPath);
 
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);
