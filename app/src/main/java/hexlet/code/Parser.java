@@ -28,6 +28,15 @@ public class Parser {
                 .toList();
     }
 
+    public static List<String> getListOfUniqueStringKeys(Map<String, String> map1, Map<String, String> map2) {
+
+        return Stream.concat(
+                        map1.keySet().stream(), map2.keySet().stream())
+                .distinct()
+                .sorted()
+                .toList();
+    }
+
     public static String isMapsContainKey(Map<String, Object> map1, Map<String, Object> map2, String key) {
 
         if (map1.containsKey(key) && !map2.containsKey(key)) {

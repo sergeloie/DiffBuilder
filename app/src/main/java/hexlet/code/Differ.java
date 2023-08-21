@@ -1,5 +1,7 @@
 package hexlet.code;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -43,5 +45,31 @@ public class Differ {
         }
         stylishOutput.append("}");
         return stylishOutput.toString();
+    }
+
+    public static String buildDiffExtended(List<String> list, Map<String, String> map1, Map<String, String> map2) {
+        StringBuilder output = new StringBuilder();
+        output.append("{\n");
+
+        for (String key : list) {
+            if (map1.containsKey(key) && !map2.containsKey(key)) {
+                output.append(String.format("- %s: %s\n", key, map1.get(key)));
+                continue;
+            }
+            if (!map1.containsKey(key) && map2.containsKey(key)) {
+                output.append(String.format("+ %s: %s\n", key, map2.get(key)));
+                continue;
+            }
+            if (map1.containsKey(key) && map2.containsKey(key)) {
+                if (StringUtils.equals(map1.get(key), map2.get(key))) {
+                    output.append(String.format("  %s: %s\n", key, map1.get(key)));
+                } else {
+                    output.append(String.format("- %s: %s\n", key, map1.get(key)));
+                    output.append(String.format("+ %s: %s\n", key, map2.get(key)));
+                }
+            }
+        }
+        output.append("}");
+        return output.toString();
     }
 }

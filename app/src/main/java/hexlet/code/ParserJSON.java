@@ -14,9 +14,9 @@ import java.util.Map;
 public class ParserJSON {
 
     /**
-     * @param jsonString
+     * @param jsonString String of JSON Objects
      * @return Map<String, Object> from parsed json String
-     * @throws JsonProcessingException
+     * @throws JsonProcessingException JsonProcessingException
      */
     public static Map<String, Object> parseJSONstringToMap(String jsonString) throws JsonProcessingException {
 
@@ -36,5 +36,20 @@ public class ParserJSON {
         Path path = Paths.get(jsonFile.getAbsolutePath());
         String contentOfJSONFile = Files.readString(path);
         return parseJSONstringToMap(contentOfJSONFile);
+    }
+
+    public static Map<String, String> parseJSONstringToStringMap(String jsonString) throws JsonProcessingException {
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(jsonString, new TypeReference<Map<String, String>>() {
+        });
+
+    }
+
+    public static Map<String, String> parseJSONfileToStringMap(File jsonFile) throws IOException {
+
+        Path path = Paths.get(jsonFile.getAbsolutePath());
+        String contentOfJSONFile = Files.readString(path);
+        return parseJSONstringToStringMap(contentOfJSONFile);
     }
 }
