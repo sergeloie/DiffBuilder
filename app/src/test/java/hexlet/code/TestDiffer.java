@@ -17,7 +17,10 @@ import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
 
 public class TestDiffer {
 
@@ -42,12 +45,12 @@ public class TestDiffer {
         File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
         String expected = """
                 {
-                - follow: false
-                  host: hexlet.io
-                - proxy: 123.234.53.22
-                - timeout: 50
-                + timeout: 20
-                + verbose: true
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
                 }""";
         String actual = generate(file1, file2);
         assertEquals(expected, actual);
@@ -137,39 +140,39 @@ public class TestDiffer {
 
         String expectedShort = """
                 {
-                - follow: false
-                  host: hexlet.io
-                - proxy: 123.234.53.22
-                - timeout: 50
-                + timeout: 20
-                + verbose: true
+                  - follow: false
+                    host: hexlet.io
+                  - proxy: 123.234.53.22
+                  - timeout: 50
+                  + timeout: 20
+                  + verbose: true
                 }""";
 
         String expectedLong = """
                 {
-                  chars1: [a, b, c]
-                - chars2: [d, e, f]
-                + chars2: false
-                - checked: false
-                + checked: true
-                - default: null
-                + default: [value1, value2]
-                - id: 45
-                + id: null
-                - key1: value1
-                + key2: value2
-                  numbers1: [1, 2, 3, 4]
-                - numbers2: [2, 3, 4, 5]
-                + numbers2: [22, 33, 44, 55]
-                - numbers3: [3, 4, 5]
-                + numbers4: [4, 5, 6]
-                + obj1: {nestedKey=value, isNested=true}
-                - setting1: Some value
-                + setting1: Another value
-                - setting2: 200
-                + setting2: 300
-                - setting3: true
-                + setting3: none
+                    chars1: [a, b, c]
+                  - chars2: [d, e, f]
+                  + chars2: false
+                  - checked: false
+                  + checked: true
+                  - default: null
+                  + default: [value1, value2]
+                  - id: 45
+                  + id: null
+                  - key1: value1
+                  + key2: value2
+                    numbers1: [1, 2, 3, 4]
+                  - numbers2: [2, 3, 4, 5]
+                  + numbers2: [22, 33, 44, 55]
+                  - numbers3: [3, 4, 5]
+                  + numbers4: [4, 5, 6]
+                  + obj1: {nestedKey=value, isNested=true}
+                  - setting1: Some value
+                  + setting1: Another value
+                  - setting2: 200
+                  + setting2: 300
+                  - setting3: true
+                  + setting3: none
                 }""";
 
         assertEquals(expectedShort, generate(file1, file2));
@@ -220,8 +223,8 @@ public class TestDiffer {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file1 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
         File file2 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
-        Map<String, Object> anyMap1= parseJSONfileToMap(file1);
-        Map<String, Object> anyMap2= parseJSONfileToMap(file2);
+        Map<String, Object> anyMap1 = parseJSONfileToMap(file1);
+        Map<String, Object> anyMap2 = parseJSONfileToMap(file2);
         List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
         List<DifferBuilder> list1 = buildDiffList(sortedList, anyMap1, anyMap2);
         System.out.println(list1.toString());
