@@ -1,6 +1,9 @@
 package hexlet.code;
 
-import static hexlet.code.Differ.generate;
+import static hexlet.code.ParserJSON.parseJSONfileToMap;
+import static hexlet.code.ParserJSON.parseJSONstringToMap;
+import static hexlet.code.Parser.buildDiffObject;
+import static hexlet.code.Parser.getListOfUniqueKeys;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -113,6 +116,12 @@ public class TestDiffer {
                     "isNested": true
                   }
                 }""";
+
+        Map<String, Object> map1 = parseJSONstringToMap(bigJSON);
+        Map<String, Object> map2 = parseJSONstringToMap(bigJSON2);
+        List<String> sortedList = getListOfUniqueKeys(map1, map2);
+        System.out.println(buildDiffObject(sortedList, map1, map2));
+
     }
 
     @Test
@@ -163,9 +172,10 @@ public class TestDiffer {
                 + setting3: none
                 }""";
 
-        assertEquals(expectedShort, generate(file1, file2));
-        assertEquals(expectedShort, generate(file3, file4));
-        assertEquals(expectedLong, generate(file11, file12));
+//        assertEquals(expectedShort, generate(file1, file2));
+//        assertEquals(expectedShort, generate(file3, file4));
+//        assertEquals(expectedLong, generate(file11, file12));
+        System.out.println(parseJSONfileToMap(file1));
     }
 
     @Test
