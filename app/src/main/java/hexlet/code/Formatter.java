@@ -22,4 +22,8 @@ public class Formatter {
         result.append("}");
         return result.toString();
     }
+
+    public static String buildFormattedString(String formatType) {
+        return stylish(diffLIst);
+    }
 }
