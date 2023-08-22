@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import static hexlet.code.Differ.generate;
+import static hexlet.code.DifferBuilder.buildDiffList;
 import static hexlet.code.ParserJSON.parseJSONfileToMap;
 import static hexlet.code.ParserJSON.parseJSONstringToMap;
 import static hexlet.code.Parser.buildDiffObject;
@@ -185,5 +186,18 @@ public class TestDiffer {
         testMap.put("bravo", "fourth");
         testMap.put("bravo", "fifth");
         System.out.println(testMap);
+    }
+
+    @Test
+    public void testbuildDiffList() throws IOException {
+        ClassLoader classLoader = this.getClass().getClassLoader();
+        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
+        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
+        Map<String, Object> anyMap1= parseJSONfileToMap(file1);
+        Map<String, Object> anyMap2= parseJSONfileToMap(file2);
+        List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, anyMap1, anyMap2);
+        System.out.println(list1.toString());
+
     }
 }
