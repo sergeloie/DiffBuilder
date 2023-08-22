@@ -2,6 +2,7 @@ package hexlet.code;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.DifferBuilder.buildDiffList;
+import static hexlet.code.Formatter.stylish;
 import static hexlet.code.ParserJSON.parseJSONfileToMap;
 import static hexlet.code.ParserJSON.parseJSONstringToMap;
 import static hexlet.code.Parser.buildDiffObject;
@@ -190,14 +191,42 @@ public class TestDiffer {
 
     @Test
     public void testbuildDiffList() throws IOException {
+        String expectedLong = """
+                {
+                    chars1: [a, b, c]
+                  - chars2: [d, e, f]
+                  + chars2: false
+                  - checked: false
+                  + checked: true
+                  - default: null
+                  + default: [value1, value2]
+                  - id: 45
+                  + id: null
+                  - key1: value1
+                  + key2: value2
+                    numbers1: [1, 2, 3, 4]
+                  - numbers2: [2, 3, 4, 5]
+                  + numbers2: [22, 33, 44, 55]
+                  - numbers3: [3, 4, 5]
+                  + numbers4: [4, 5, 6]
+                  + obj1: {nestedKey=value, isNested=true}
+                  - setting1: Some value
+                  + setting1: Another value
+                  - setting2: 200
+                  + setting2: 300
+                  - setting3: true
+                  + setting3: none
+                }""";
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
-        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
+        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
+        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
         Map<String, Object> anyMap1= parseJSONfileToMap(file1);
         Map<String, Object> anyMap2= parseJSONfileToMap(file2);
         List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
         List<DifferBuilder> list1 = buildDiffList(sortedList, anyMap1, anyMap2);
         System.out.println(list1.toString());
+        System.out.println(stylish(list1));
+        assertEquals(expectedLong, stylish(list1));
 
     }
 }

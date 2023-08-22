@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class DifferBuilder {
 
-    private enum Status {
+    public enum Status {
         DELETED,
         ADDED,
         UNCHANGED
@@ -47,10 +47,12 @@ public class DifferBuilder {
         this.diffValue = diffValue;
     }
 
-    public static List<DifferBuilder> buildDiffList(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {
+    public static List<DifferBuilder> buildDiffList(List<String> list,
+                                                    Map<String, Object> map1,
+                                                    Map<String, Object> map2) {
 
         List<DifferBuilder> result = new ArrayList<>();
-        for(String key: list) {
+        for (String key: list) {
             if (map1.containsKey(key) && !map2.containsKey(key)) {
                 result.add(new DifferBuilder(Status.DELETED, key, map1.get(key)));
                 continue;
@@ -69,5 +71,15 @@ public class DifferBuilder {
             }
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("DifferBuilder{");
+        sb.append("status=").append(status);
+        sb.append(", diffKey='").append(diffKey).append('\'');
+        sb.append(", diffValue=").append(diffValue);
+        sb.append('}');
+        return sb.toString();
     }
 }
