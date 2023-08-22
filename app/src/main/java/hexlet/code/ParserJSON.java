@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ParserJSON {
@@ -26,16 +25,6 @@ public class ParserJSON {
         });
     }
 
-//    public static Map<String, String> parseJSONfileToStringMap(File jsonFile) throws IOException {
-//
-//        Path path = Paths.get(jsonFile.getAbsolutePath());
-//        String contentOfJSONFile = Files.readString(path);
-//        Map<String, String> result = new HashMap<>();
-//        parseJSONstringToMap(contentOfJSONFile).entrySet().stream()
-//                .forEach(entry -> result.put(entry.getKey(),
-//                        entry.getValue() != null ? entry.getValue().toString() : null));
-//        return result;
-//    }
 
     public static Map<String, Object> parseJSONfileToMap(File jsonFile) throws IOException {
 

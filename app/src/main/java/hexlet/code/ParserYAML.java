@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashMap;
 import java.util.Map;
 
 public class ParserYAML {
@@ -25,16 +24,6 @@ public class ParserYAML {
         });
     }
 
-//    public static Map<String, String> parseYAMLfileToStringMap(File yamlFile) throws IOException {
-//
-//        Path path = Paths.get(yamlFile.getAbsolutePath());
-//        String contentOfYAMLFile = Files.readString(path);
-//        Map<String, String> result = new HashMap<>();
-//        parseYAMLstringToMap(contentOfYAMLFile).entrySet().stream()
-//                .forEach(entry -> result.put(entry.getKey(),
-//                        entry.getValue() != null ? entry.getValue().toString() : null));
-//        return result;
-//    }
 
     public static Map<String, Object> parseYAMLfileToMap(File yamlFile) throws IOException {
 

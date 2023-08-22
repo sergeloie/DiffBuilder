@@ -12,20 +12,10 @@ import java.util.stream.Stream;
 
 
 import static hexlet.code.ParserJSON.parseJSONfileToMap;
-//import static hexlet.code.ParserJSON.parseJSONfileToStringMap;
 import static hexlet.code.ParserYAML.parseYAMLfileToMap;
-//import static hexlet.code.ParserYAML.parseYAMLfileToStringMap;
 
 public class Parser {
 
-    public static List<String> getListOfUniqueStringKeys(Map<String, String> map1, Map<String, String> map2) {
-
-        return Stream.concat(
-                        map1.keySet().stream(), map2.keySet().stream())
-                .distinct()
-                .sorted()
-                .toList();
-    }
 
     public static String isMapsContainKey(Map<String, Object> map1, Map<String, Object> map2, String key) {
 
@@ -46,16 +36,6 @@ public class Parser {
         return "UNEQUAL";
     }
 
-//    public static Map<String, String> parseAnyFileToStringMap(File anyFile) throws IOException {
-//
-//        String fileType = getFileType(anyFile);
-//
-//        return switch (fileType) {
-//            case ("application/json") -> parseJSONfileToStringMap(anyFile);
-//            case ("text/x-yaml") -> parseYAMLfileToStringMap(anyFile);
-//            default -> Collections.<String, String>emptyMap();
-//        };
-//    }
 
     public static String getFileType(File file) throws IOException {
 

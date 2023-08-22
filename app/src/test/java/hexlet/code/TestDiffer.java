@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import static hexlet.code.Differ.generate;
 import static hexlet.code.ParserJSON.parseJSONfileToMap;
 import static hexlet.code.ParserJSON.parseJSONstringToMap;
 import static hexlet.code.Parser.buildDiffObject;
@@ -14,10 +15,7 @@ import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class TestDiffer {
 
@@ -25,21 +23,21 @@ public class TestDiffer {
 
     @Test
     public void dummyTest() {
-        assertEquals(true, true);
+        assertTrue(true);
     }
 
     @Test
     public void testReadFileWithClassLoader() {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file = new File(classLoader.getResource("file1.json").getFile());
+        File file = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
         assertTrue(file.exists());
     }
 
     @Test
     public void testWithJsonFiles() throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file1 = new File(classLoader.getResource("file1.json").getFile());
-        File file2 = new File(classLoader.getResource("file2.json").getFile());
+        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
+        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
         String expected = """
                 {
                 - follow: false
@@ -49,7 +47,7 @@ public class TestDiffer {
                 + timeout: 20
                 + verbose: true
                 }""";
-        String actual = Differ.generate(file1, file2);
+        String actual = generate(file1, file2);
         assertEquals(expected, actual);
     }
 
@@ -59,10 +57,10 @@ public class TestDiffer {
 
         ClassLoader classLoader = this.getClass().getClassLoader();
         Tika defaultTika = new Tika();
-        File file1 = new File(classLoader.getResource("file1.json").getFile());
-        File file2 = new File(classLoader.getResource("file2.json").getFile());
-        File file3 = new File(classLoader.getResource("file1.yml").getFile());
-        File file4 = new File(classLoader.getResource("file2.yml").getFile());
+        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
+        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
+        File file3 = new File(Objects.requireNonNull(classLoader.getResource("file1.yml")).getFile());
+        File file4 = new File(Objects.requireNonNull(classLoader.getResource("file2.yml")).getFile());
 
         String jsonType = "application/json";
         String yamlType = "text/x-yaml";
@@ -127,13 +125,13 @@ public class TestDiffer {
     @Test
     public void testGenerateString() throws IOException {
         ClassLoader classLoader = this.getClass().getClassLoader();
-        File file1 = new File(classLoader.getResource("file1.json").getFile());
-        File file2 = new File(classLoader.getResource("file2.json").getFile());
-        File file3 = new File(classLoader.getResource("file1.yml").getFile());
-        File file4 = new File(classLoader.getResource("file2.yml").getFile());
+        File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
+        File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
+        File file3 = new File(Objects.requireNonNull(classLoader.getResource("file1.yml")).getFile());
+        File file4 = new File(Objects.requireNonNull(classLoader.getResource("file2.yml")).getFile());
 
-        File file11 = new File(classLoader.getResource("file11.json").getFile());
-        File file12 = new File(classLoader.getResource("file12.json").getFile());
+        File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
+        File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
 
         String expectedShort = """
                 {
@@ -172,21 +170,20 @@ public class TestDiffer {
                 + setting3: none
                 }""";
 
-//        assertEquals(expectedShort, generate(file1, file2));
-//        assertEquals(expectedShort, generate(file3, file4));
-//        assertEquals(expectedLong, generate(file11, file12));
+        assertEquals(expectedShort, generate(file1, file2));
+        assertEquals(expectedShort, generate(file3, file4));
+        assertEquals(expectedLong, generate(file11, file12));
         System.out.println(parseJSONfileToMap(file1));
     }
 
     @Test
     public void testTree() {
-        List<String[]> testList = new ArrayList<>();
         Map<String, String> testMap = new TreeMap<>();
         testMap.put("alfa", "first");
         testMap.put("charlie", "second");
         testMap.put("zulu", "third");
         testMap.put("bravo", "fourth");
         testMap.put("bravo", "fifth");
-        System.out.println(testMap.toString());
+        System.out.println(testMap);
     }
 }
