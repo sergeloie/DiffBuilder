@@ -29,6 +29,9 @@ public class Formatter {
     }
 
     public static String plain(List<DifferBuilder> diffLIst) {
+        String updated = "Property '%s' was updated. From %s to %s\n";
+        String removed = "Property '%s' was removed\n";
+        String added = "Property '%s' was added with value: %s\n";
         StringBuilder result = new StringBuilder();
         for (DifferBuilder element: diffLIst) {
             result.append("Property '").append(element.getDiffKey()).append(" ' ");
