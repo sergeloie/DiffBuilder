@@ -52,7 +52,7 @@ public class TestDiffer {
                   + timeout: 20
                   + verbose: true
                 }""";
-        String actual = generate(file1, file2);
+        String actual = generate("stylish", file1, file2);
         assertEquals(expected, actual);
     }
 
@@ -175,9 +175,9 @@ public class TestDiffer {
                   + setting3: none
                 }""";
 
-        assertEquals(expectedShort, generate(file1, file2));
-        assertEquals(expectedShort, generate(file3, file4));
-        assertEquals(expectedLong, generate(file11, file12));
+        assertEquals(expectedShort, generate("stylish", file1, file2));
+        assertEquals(expectedShort, generate("stylish", file3, file4));
+        assertEquals(expectedLong, generate("stylish", file11, file12));
         System.out.println(parseJSONfileToMap(file1));
     }
 

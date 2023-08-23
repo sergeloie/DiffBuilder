@@ -23,7 +23,9 @@ public class Formatter {
         return result.toString();
     }
 
-    public static String buildFormattedString(String formatType) {
-        return stylish(diffLIst);
+    public static String buildFormattedString(String format, List<DifferBuilder> diffLIst) {
+        return switch (format) {
+            default -> stylish(diffLIst);
+        };
     }
 }

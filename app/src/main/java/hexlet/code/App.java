@@ -17,14 +17,18 @@ public class App implements Callable {
     @Parameters(paramLabel = "filepath2", description = "path to second file")
     File file2;
 
-    @Option(names = {"-f", "--format"}, paramLabel = "format", description = "output format [default: stylish]")
-    private String format = "stylish";
+    @Option(names = {"-f", "--format"},
+            defaultValue = "stylish",
+            paramLabel = "format",
+            description = "output format [default: ${DEFAULT-VALUE}]")
+    String format;
 
     @Override
     public String call() throws Exception {
 
-        System.out.println(Differ.generate(file1, file2));
-        return Differ.generate(file1, file2);
+        System.out.println(format);
+        System.out.println(Differ.generate(format, file1, file2));
+        return Differ.generate(format, file1, file2);
     }
 
     public static void main(String[] args) throws Exception {
