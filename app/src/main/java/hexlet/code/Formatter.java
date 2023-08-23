@@ -8,16 +8,25 @@ public class Formatter {
 
         StringBuilder result = new StringBuilder("{\n");
         for (DifferBuilder element: diffLIst) {
+            String eol = element.getDiffKey() + ": " + element.getDiffCurrentValue() + "\n";
             switch (element.getStatus()) {
-                case UNCHANGED -> result.append("    ");
-                case ADDED -> result.append("  + ");
-                case DELETED -> result.append("  - ");
+                case UNCHANGED -> result.append("    ").append(eol);
+                case ADDED -> result.append("  + ").append(eol);
+                case DELETED -> result.append("  - ").append(eol);
+                case UPDATED -> {
+                    result.append("  - ").append(eol);
+                    result.append("  + ");
+                    result.append(element.getDiffKey());
+                    result.append(": ");
+                    result.append(element.getDiffPreviousValue());
+                    result.append("\n");
+                }
                 default -> { }
             }
-            result.append(element.getDiffKey());
-            result.append(": ");
-            result.append(element.getDiffValue());
-            result.append("\n");
+//            result.append(element.getDiffKey());
+//            result.append(": ");
+//            result.append(element.getDiffValue());
+//            result.append("\n");
         }
         result.append("}");
         return result.toString();

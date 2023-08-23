@@ -10,17 +10,27 @@ public class DifferBuilder {
     public enum Status {
         DELETED,
         ADDED,
-        UNCHANGED
+        UNCHANGED,
+        UPDATED
     }
 
     private Status status;
     private String diffKey;
-    private Object diffValue;
+    private Object diffCurrentValue;
+    private Object diffPreviousValue;
 
-    public DifferBuilder(Status status, String diffKey, Object diffValue) {
+    public DifferBuilder(Status status, String diffKey, Object diffCurrentValue, Object diffPreviousValue) {
         this.status = status;
         this.diffKey = diffKey;
-        this.diffValue = diffValue;
+        this.diffCurrentValue = diffCurrentValue;
+        this.diffPreviousValue = diffPreviousValue;
+    }
+
+    public DifferBuilder(Status status, String diffKey, Object diffCurrentValue) {
+        this.status = status;
+        this.diffKey = diffKey;
+        this.diffCurrentValue = diffCurrentValue;
+
     }
 
     public Status getStatus() {
@@ -39,12 +49,20 @@ public class DifferBuilder {
         this.diffKey = diffKey;
     }
 
-    public Object getDiffValue() {
-        return diffValue;
+    public Object getDiffCurrentValue() {
+        return diffCurrentValue;
     }
 
-    public void setDiffValue(Object diffValue) {
-        this.diffValue = diffValue;
+    public void setDiffCurrentValue(Object diffCurrentValue) {
+        this.diffCurrentValue = diffCurrentValue;
+    }
+
+    public Object getDiffPreviousValue() {
+        return diffPreviousValue;
+    }
+
+    public void setDiffPreviousValue(Object diffPreviousValue) {
+        this.diffPreviousValue = diffPreviousValue;
     }
 
     public static List<DifferBuilder> buildDiffList(List<String> list,
@@ -65,8 +83,9 @@ public class DifferBuilder {
                 if (Objects.equals(map1.get(key), map2.get(key))) {
                     result.add(new DifferBuilder(Status.UNCHANGED, key, map1.get(key)));
                 } else {
-                    result.add(new DifferBuilder(Status.DELETED, key, map1.get(key)));
-                    result.add(new DifferBuilder(Status.ADDED, key, map2.get(key)));
+                    result.add(new DifferBuilder(Status.UPDATED, key, map1.get(key), map2.get(key)));
+//                    result.add(new DifferBuilder(Status.DELETED, key, map1.get(key)));
+//                    result.add(new DifferBuilder(Status.ADDED, key, map2.get(key)));
                 }
             }
         }
@@ -78,7 +97,8 @@ public class DifferBuilder {
         final StringBuilder sb = new StringBuilder("DifferBuilder{");
         sb.append("status=").append(status);
         sb.append(", diffKey='").append(diffKey).append('\'');
-        sb.append(", diffValue=").append(diffValue);
+        sb.append(", diffCurrentValue=").append(diffCurrentValue);
+        sb.append(", diffPreviousValue=").append(diffPreviousValue);
         sb.append('}');
         return sb.toString();
     }
