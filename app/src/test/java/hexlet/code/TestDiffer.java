@@ -9,6 +9,7 @@ import static hexlet.code.formatters.Plain.isComplexObject;
 import static hexlet.code.formatters.Plain.isStringObject;
 import static hexlet.code.formatters.Stylish.stylish;
 import static hexlet.code.parsers.ParserJSON.parseJSONstringToMap;
+import static hexlet.code.serializers.serializeJSON.diffToJSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -213,5 +214,14 @@ public class TestDiffer {
         List<String> sortedList = getListOfUniqueKeys(map1, map2);
         List<DifferBuilder> list1 = buildDiffList(sortedList, map1, map2);
         assertEquals(expectedStylishShort, stylish(list1));
+    }
+
+    @Test
+    public void testToJSON() throws IOException {
+        Map<String, Object> map1 = parseFileToMap(file1);
+        Map<String, Object> map2 = parseFileToMap(file2);
+        List<String> sortedList = getListOfUniqueKeys(map1, map2);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, map1, map2);
+        System.out.println(diffToJSON(list1));
     }
 }
