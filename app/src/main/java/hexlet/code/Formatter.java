@@ -72,10 +72,10 @@ public class Formatter {
     }
 
     public static String getElementPlainValue(Object object) {
-        if (isComplexObject(object)) {
-            return "[complex value]";
-        }
-        return object == null ? "null" : (isStringObject(object) ? String.format("'%s'", object) : object.toString());
+
+        return object == null ? "null" :
+                isComplexObject(object) ? "[complex value]" :
+                        isStringObject(object) ? String.format("'%s'", object) : object.toString();
     }
 
     public static String buildFormattedString(String format, List<DifferBuilder> diffLIst) {
