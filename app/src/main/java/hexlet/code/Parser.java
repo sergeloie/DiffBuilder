@@ -25,31 +25,31 @@ public class Parser {
         return defaultTika.detect(file);
     }
 
-    public static String buildDiffObject(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {
-        StringBuilder output = new StringBuilder();
-        output.append("{\n");
-
-        for (String key : list) {
-            if (map1.containsKey(key) && !map2.containsKey(key)) {
-                output.append(String.format("- %s: %s\n", key, map1.get(key)));
-                continue;
-            }
-            if (!map1.containsKey(key) && map2.containsKey(key)) {
-                output.append(String.format("+ %s: %s\n", key, map2.get(key)));
-                continue;
-            }
-            if (map1.containsKey(key) && map2.containsKey(key)) {
-                if (Objects.equals(map1.get(key), map2.get(key))) {
-                    output.append(String.format("  %s: %s\n", key, map1.get(key)));
-                } else {
-                    output.append(String.format("- %s: %s\n", key, map1.get(key)));
-                    output.append(String.format("+ %s: %s\n", key, map2.get(key)));
-                }
-            }
-        }
-        output.append("}");
-        return output.toString();
-    }
+//    public static String buildDiffObject(List<String> list, Map<String, Object> map1, Map<String, Object> map2) {
+//        StringBuilder output = new StringBuilder();
+//        output.append("{\n");
+//
+//        for (String key : list) {
+//            if (map1.containsKey(key) && !map2.containsKey(key)) {
+//                output.append(String.format("- %s: %s\n", key, map1.get(key)));
+//                continue;
+//            }
+//            if (!map1.containsKey(key) && map2.containsKey(key)) {
+//                output.append(String.format("+ %s: %s\n", key, map2.get(key)));
+//                continue;
+//            }
+//            if (map1.containsKey(key) && map2.containsKey(key)) {
+//                if (Objects.equals(map1.get(key), map2.get(key))) {
+//                    output.append(String.format("  %s: %s\n", key, map1.get(key)));
+//                } else {
+//                    output.append(String.format("- %s: %s\n", key, map1.get(key)));
+//                    output.append(String.format("+ %s: %s\n", key, map2.get(key)));
+//                }
+//            }
+//        }
+//        output.append("}");
+//        return output.toString();
+//    }
 
     public static List<String> getListOfUniqueKeys(Map<String, Object> map1, Map<String, Object> map2) {
 
