@@ -2,13 +2,13 @@ package hexlet.code;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.DifferBuilder.buildDiffList;
-import static hexlet.code.Formatter.isComplexObject;
-import static hexlet.code.Formatter.isStringObject;
-import static hexlet.code.Formatter.stylish;
-import static hexlet.code.ParserJSON.parseJSONfileToMap;
-import static hexlet.code.ParserJSON.parseJSONstringToMap;
 import static hexlet.code.Parser.buildDiffObject;
 import static hexlet.code.Parser.getListOfUniqueKeys;
+import static hexlet.code.Parser.parseFileToMap;
+import static hexlet.code.formatters.Plain.isComplexObject;
+import static hexlet.code.formatters.Plain.isStringObject;
+import static hexlet.code.formatters.Stylish.stylish;
+import static hexlet.code.parsers.ParserJSON.parseJSONstringToMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -101,7 +101,7 @@ public class TestDiffer {
 
     @Test
     public void testWithJsonFiles() throws IOException {
-        String actual = generate("stylish", file1, file2);
+        String actual = generate(file1, file2, "stylish");
         assertEquals(expectedStylishShort, actual);
     }
 
@@ -167,11 +167,10 @@ public class TestDiffer {
     @Test
     public void testGenerateString() throws IOException {
 
-        assertEquals(expectedStylishShort, generate("stylish", file1, file2));
-        assertEquals(expectedStylishShort, generate("stylish", file3, file4));
-        assertEquals(expectedStylishLong, generate("stylish", file11, file12));
-        assertEquals(expectedPlainLong, generate("plain", file11, file12));
-        System.out.println(parseJSONfileToMap(file1));
+        assertEquals(expectedStylishShort, generate(file1, file2, "stylish"));
+        assertEquals(expectedStylishShort, generate(file3, file4, "stylish"));
+        assertEquals(expectedStylishLong, generate(file11, file12, "stylish"));
+        assertEquals(expectedPlainLong, generate(file11, file12, "plain"));
     }
 
     @Test
@@ -188,8 +187,8 @@ public class TestDiffer {
     @Test
     public void testBuildDiffList() throws IOException {
 
-        Map<String, Object> anyMap1 = parseJSONfileToMap(file11);
-        Map<String, Object> anyMap2 = parseJSONfileToMap(file12);
+        Map<String, Object> anyMap1 = parseFileToMap(file11);
+        Map<String, Object> anyMap2 = parseFileToMap(file12);
         List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
         List<DifferBuilder> list1 = buildDiffList(sortedList, anyMap1, anyMap2);
         assertEquals(expectedStylishLong, stylish(list1));
@@ -197,7 +196,7 @@ public class TestDiffer {
 
     @Test
     public void testComplicity() throws IOException {
-        Map<String, Object> testMap1 = parseJSONfileToMap(file12);
+        Map<String, Object> testMap1 = parseFileToMap(file12);
         testMap1.keySet()
                 .forEach(x -> {
                     System.out.println(x + " " + testMap1.get(x) + " "
@@ -205,5 +204,14 @@ public class TestDiffer {
                             + " isComplex=" + isComplexObject(testMap1.get(x))
                             + " isString =" + isStringObject(testMap1.get(x)));
                 });
+    }
+
+    @Test
+    public void testParseFileToMap() throws IOException {
+        Map<String, Object> map1 = parseFileToMap(file1);
+        Map<String, Object> map2 = parseFileToMap(file2);
+        List<String> sortedList = getListOfUniqueKeys(map1, map2);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, map1, map2);
+        assertEquals(expectedStylishShort, stylish(list1));
     }
 }

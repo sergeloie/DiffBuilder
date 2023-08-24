@@ -4,15 +4,17 @@ import org.apache.tika.Tika;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-
-import static hexlet.code.ParserJSON.parseJSONfileToMap;
-import static hexlet.code.ParserYAML.parseYAMLfileToMap;
+import static hexlet.code.parsers.ParserJSON.parseJSONstringToMap;
+import static hexlet.code.parsers.ParserYAML.parseYAMLstringToMap;
 
 public class Parser {
 
@@ -58,13 +60,15 @@ public class Parser {
                 .toList();
     }
 
-    public static Map<String, Object> parseAnyFileToMap(File anyFile) throws IOException {
+    public static Map<String, Object> parseFileToMap(File file) throws IOException {
 
-        String fileType = getFileType(anyFile);
+        String fileType = getFileType(file);
 
+        Path path = Paths.get(file.getAbsolutePath());
+        String contentOfFile = Files.readString(path);
         return switch (fileType) {
-            case ("application/json") -> parseJSONfileToMap(anyFile);
-            case ("text/x-yaml") -> parseYAMLfileToMap(anyFile);
+            case ("application/json") -> parseJSONstringToMap(contentOfFile);
+            case ("text/x-yaml") -> parseYAMLstringToMap(contentOfFile);
             default -> Collections.emptyMap();
         };
     }
