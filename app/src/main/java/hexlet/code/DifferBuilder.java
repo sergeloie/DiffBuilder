@@ -48,7 +48,7 @@ public class DifferBuilder {
     }
 
     /**
-     * @return
+     * @return Status [DELETED, ADDED, UNCHANGED, UPDATED].
      */
     public Status getStatus() {
         return status;
@@ -62,7 +62,7 @@ public class DifferBuilder {
     }
 
     /**
-     * @return
+     * @return Key of comparable node
      */
     public String getDiffKey() {
         return diffKey;
@@ -76,7 +76,7 @@ public class DifferBuilder {
     }
 
     /**
-     * @return
+     * @return Current value of comparable node
      */
     public Object getDiffCurrentValue() {
         return diffCurrentValue;
@@ -90,7 +90,7 @@ public class DifferBuilder {
     }
 
     /**
-     * @return
+     * @return Previous value of comparable node
      */
     public Object getDiffPreviousValue() {
         return diffPreviousValue;
@@ -107,7 +107,7 @@ public class DifferBuilder {
      * @param list
      * @param map1
      * @param map2
-     * @return
+     * @return List with full information about nodes
      */
     public static List<DifferBuilder> buildDiffList(List<String> list,
                                                     Map<String, Object> map1,
