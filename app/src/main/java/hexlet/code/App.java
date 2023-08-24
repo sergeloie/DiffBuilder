@@ -25,11 +25,12 @@ public class App implements Callable {
 
     @Override
     public String call() throws Exception {
-
-
-
-        System.out.println(Differ.generate(file1, file2, format));
-        return Differ.generate(file1, file2, format);
+        String filePath1 = file1.getAbsolutePath();
+        String filePath2 = file2.getAbsolutePath();
+        File newFile1 = new File(filePath1);
+        File newFile2 = new File(filePath2);
+        System.out.println(Differ.generate(newFile1, newFile2, format));
+        return Differ.generate(newFile1, newFile2, format);
     }
 
     public static void main(String[] args) {
