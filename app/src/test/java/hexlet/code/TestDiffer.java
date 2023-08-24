@@ -95,7 +95,7 @@ public class TestDiffer {
 
     @Test
     public void testWithJsonFiles() throws IOException {
-        String actual = generate(file11, file12, "stylish");
+        String actual = generate(file11.toPath(), file12.toPath(), "stylish");
         assertEquals(expectedStylishLong, actual);
     }
 
@@ -124,8 +124,8 @@ public class TestDiffer {
     @Test
     public void testGenerateString() throws IOException {
 
-        assertEquals(expectedStylishLong, generate(file11, file12, "stylish"));
-        assertEquals(expectedPlainLong, generate(file11, file12, "plain"));
+        assertEquals(expectedStylishLong, generate(file11.toPath(), file12.toPath(), "stylish"));
+        assertEquals(expectedPlainLong, generate(file11.toPath(), file12.toPath(), "plain"));
     }
 
 
