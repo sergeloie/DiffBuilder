@@ -2,6 +2,7 @@ package hexlet.code;
 
 import static hexlet.code.Differ.generate;
 import static hexlet.code.DifferBuilder.buildDiffList;
+import static hexlet.code.Formatter.buildFormattedString;
 import static hexlet.code.Parser.buildDiffObject;
 import static hexlet.code.Parser.getListOfUniqueKeys;
 import static hexlet.code.Parser.parseFileToMap;
@@ -175,5 +176,6 @@ public class TestDiffer {
         List<String> sortedList = getListOfUniqueKeys(map11, map12);
         List<DifferBuilder> list1 = buildDiffList(sortedList, map11, map12);
         System.out.println(diffToJSON(list1));
+        System.out.println(buildFormattedString("json", list1));
     }
 }
