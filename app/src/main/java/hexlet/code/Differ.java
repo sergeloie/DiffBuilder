@@ -47,5 +47,14 @@ public class Differ {
         return buildFormattedString(formatOutput, diffBuildList);
     }
 
+    public static String generate(String filePath1, String filePath2) throws IOException {
+
+        Map<String, Object> map1 = Parser.parseFileToMap(Path.of(filePath1).toFile());
+        Map<String, Object> map2 = Parser.parseFileToMap(Path.of(filePath2).toFile());
+        List<String> sortedList = Parser.getListOfUniqueKeys(map1, map2);
+        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
+        return buildFormattedString("stylish", diffBuildList);
+    }
+
 
 }
