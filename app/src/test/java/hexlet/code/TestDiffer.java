@@ -3,7 +3,6 @@ package hexlet.code;
 import static hexlet.code.Differ.generate;
 import static hexlet.code.DifferBuilder.buildDiffList;
 import static hexlet.code.Formatter.buildFormattedString;
-//import static hexlet.code.Parser.buildDiffObject;
 import static hexlet.code.Parser.getListOfUniqueKeys;
 import static hexlet.code.Parser.parseFileToMap;
 import static hexlet.code.formatters.Plain.isComplexObject;
@@ -112,14 +111,6 @@ public class TestDiffer {
         assertEquals(yamlType, defaultTika.detect(file22));
     }
 
-
-//    @Test
-//    public void testBigJsonStringToMap() {
-//
-//        List<String> sortedList = getListOfUniqueKeys(map11, map12);
-//        System.out.println(diffToStylish(sortedList, map11, map12));
-//
-//    }
 
     @Test
     public void testGenerateString() throws IOException {

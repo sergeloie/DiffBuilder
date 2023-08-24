@@ -1,6 +1,5 @@
 package hexlet.code;
 
-//import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -55,6 +54,4 @@ public class Differ {
         List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
         return buildFormattedString("stylish", diffBuildList);
     }
-
-
 }

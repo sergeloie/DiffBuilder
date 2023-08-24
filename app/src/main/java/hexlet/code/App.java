@@ -6,7 +6,6 @@ import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 
 import java.io.File;
-//import java.nio.file.Path;
 import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", version = "gendiff 1.0", mixinStandardHelpOptions = true)
@@ -32,10 +31,6 @@ public class App implements Callable {
     public String call() throws Exception {
         String filePath1 = file1.getAbsolutePath();
         String filePath2 = file2.getAbsolutePath();
-//        File newFile1 = new File(filePath1);
-//        File newFile2 = new File(filePath2);
-//        Path filePath1 = Path.of(file1.getAbsolutePath());
-//        Path filePath2 = Path.of(file2.getAbsolutePath());
 
         System.out.println(Differ.generate(filePath1, filePath2, format));
         return Differ.generate(filePath1, filePath2, format);
