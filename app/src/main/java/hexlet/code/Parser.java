@@ -65,7 +65,7 @@ public class Parser {
         return switch (fileType) {
             case ("application/json") -> parseJSONfileToMap(anyFile);
             case ("text/x-yaml") -> parseYAMLfileToMap(anyFile);
-            default -> Collections.<String, Object>emptyMap();
+            default -> Collections.emptyMap();
         };
     }
 }
