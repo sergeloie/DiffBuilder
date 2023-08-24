@@ -7,13 +7,11 @@ import static hexlet.code.Parser.getListOfUniqueKeys;
 import static hexlet.code.Parser.parseFileToMap;
 import static hexlet.code.formatters.Plain.isComplexObject;
 import static hexlet.code.formatters.Plain.isStringObject;
-import static hexlet.code.formatters.Stylish.stylish;
-import static hexlet.code.parsers.ParserJSON.parseJSONstringToMap;
-import static hexlet.code.serializers.serializeJSON.diffToJSON;
+import static hexlet.code.formatters.Stylish.diffToStylish;
+import static hexlet.code.serializers.SerializeJSON.diffToJSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
 
 import org.apache.tika.Tika;
@@ -23,7 +21,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.TreeMap;
 
 public class TestDiffer {
 
@@ -32,9 +29,15 @@ public class TestDiffer {
     File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
     File file3 = new File(Objects.requireNonNull(classLoader.getResource("file1.yml")).getFile());
     File file4 = new File(Objects.requireNonNull(classLoader.getResource("file2.yml")).getFile());
-
     File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
     File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
+
+    Map<String, Object> map1 = parseFileToMap(file1);
+    Map<String, Object> map2 = parseFileToMap(file2);
+    Map<String, Object> map3 = parseFileToMap(file3);
+    Map<String, Object> map4 = parseFileToMap(file4);
+    Map<String, Object> map11 = parseFileToMap(file11);
+    Map<String, Object> map12 = parseFileToMap(file12);
 
     String expectedStylishShort = """
                 {
@@ -88,6 +91,8 @@ public class TestDiffer {
                 Property 'setting2' was updated. From 200 to 300
                 Property 'setting3' was updated. From true to 'none'""";
 
+    public TestDiffer() throws IOException {
+    }
 
 
     @Test
@@ -121,47 +126,10 @@ public class TestDiffer {
 
 
     @Test
-    public void testBigJsonStringToMap() throws JsonProcessingException {
-        String bigJSON = """
-                {
-                  "setting1": "Some value",
-                  "setting2": 200,
-                  "setting3": true,
-                  "key1": "value1",
-                  "numbers1": [1, 2, 3, 4],
-                  "numbers2": [2, 3, 4, 5],
-                  "id": "null",
-                  "default": null,
-                  "checked": false,
-                  "numbers3": [3, 4, 5],
-                  "chars1": ["a", "b", "c"],
-                  "chars2": ["d", "e", "f"]
-                }""";
+    public void testBigJsonStringToMap() {
 
-        String bigJSON2 = """
-                {
-                  "setting1": "Another value",
-                  "setting2": 300,
-                  "setting3": "none",
-                  "key2": "value2",
-                  "numbers1": [1, 2, 3, 4],
-                  "numbers2": [22, 33, 44, 55],
-                  "id": null,
-                  "default": ["value1", "value2"],
-                  "checked": true,
-                  "numbers4": [4, 5, 6],
-                  "chars1": ["a", "b", "c"],
-                  "chars2": false,
-                  "obj1": {
-                    "nestedKey": "value",
-                    "isNested": true
-                  }
-                }""";
-
-        Map<String, Object> map1 = parseJSONstringToMap(bigJSON);
-        Map<String, Object> map2 = parseJSONstringToMap(bigJSON2);
-        List<String> sortedList = getListOfUniqueKeys(map1, map2);
-        System.out.println(buildDiffObject(sortedList, map1, map2));
+        List<String> sortedList = getListOfUniqueKeys(map11, map12);
+        System.out.println(buildDiffObject(sortedList, map11, map12));
 
     }
 
@@ -174,25 +142,13 @@ public class TestDiffer {
         assertEquals(expectedPlainLong, generate(file11, file12, "plain"));
     }
 
-    @Test
-    public void testTree() {
-        Map<String, String> testMap = new TreeMap<>();
-        testMap.put("alfa", "first");
-        testMap.put("charlie", "second");
-        testMap.put("zulu", "third");
-        testMap.put("bravo", "fourth");
-        testMap.put("bravo", "fifth");
-        System.out.println(testMap);
-    }
 
     @Test
-    public void testBuildDiffList() throws IOException {
+    public void testBuildDiffList() {
 
-        Map<String, Object> anyMap1 = parseFileToMap(file11);
-        Map<String, Object> anyMap2 = parseFileToMap(file12);
-        List<String> sortedList = getListOfUniqueKeys(anyMap1, anyMap2);
-        List<DifferBuilder> list1 = buildDiffList(sortedList, anyMap1, anyMap2);
-        assertEquals(expectedStylishLong, stylish(list1));
+        List<String> sortedList = getListOfUniqueKeys(map11, map12);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, map11, map12);
+        assertEquals(expectedStylishLong, diffToStylish(list1));
     }
 
     @Test
@@ -208,20 +164,16 @@ public class TestDiffer {
     }
 
     @Test
-    public void testParseFileToMap() throws IOException {
-        Map<String, Object> map1 = parseFileToMap(file1);
-        Map<String, Object> map2 = parseFileToMap(file2);
-        List<String> sortedList = getListOfUniqueKeys(map1, map2);
-        List<DifferBuilder> list1 = buildDiffList(sortedList, map1, map2);
-        assertEquals(expectedStylishShort, stylish(list1));
+    public void testParseFileToMap() {
+        List<String> sortedList = getListOfUniqueKeys(map11, map12);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, map11, map12);
+        assertEquals(expectedStylishLong, diffToStylish(list1));
     }
 
     @Test
     public void testToJSON() throws IOException {
-        Map<String, Object> map1 = parseFileToMap(file1);
-        Map<String, Object> map2 = parseFileToMap(file2);
-        List<String> sortedList = getListOfUniqueKeys(map1, map2);
-        List<DifferBuilder> list1 = buildDiffList(sortedList, map1, map2);
+        List<String> sortedList = getListOfUniqueKeys(map11, map12);
+        List<DifferBuilder> list1 = buildDiffList(sortedList, map11, map12);
         System.out.println(diffToJSON(list1));
     }
 }

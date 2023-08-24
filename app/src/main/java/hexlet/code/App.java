@@ -30,7 +30,7 @@ public class App implements Callable {
         return Differ.generate(file1, file2, format);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         int exitCode = new CommandLine(new App()).execute(args);
         System.exit(exitCode);

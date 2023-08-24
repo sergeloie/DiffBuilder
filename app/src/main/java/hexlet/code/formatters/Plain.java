@@ -5,7 +5,7 @@ import hexlet.code.DifferBuilder;
 import java.util.List;
 
 public class Plain {
-    public static String plain(List<DifferBuilder> diffLIst) {
+    public static String diffToPlain(List<DifferBuilder> diffLIst) {
         String updated = "Property '%s' was updated. From %s to %s\n";
         String removed = "Property '%s' was removed\n";
         String added = "Property '%s' was added with value: %s\n";

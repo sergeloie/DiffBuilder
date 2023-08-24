@@ -92,7 +92,7 @@ public class DifferBuilder {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("DifferBuilder{");
+        StringBuilder sb = new StringBuilder("DifferBuilder{");
         sb.append("status=").append(status);
         sb.append(", diffKey='").append(diffKey).append('\'');
         sb.append(", diffCurrentValue=").append(diffCurrentValue);

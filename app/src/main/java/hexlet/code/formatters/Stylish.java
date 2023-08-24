@@ -5,7 +5,7 @@ import hexlet.code.DifferBuilder;
 import java.util.List;
 
 public class Stylish {
-    public static String stylish(List<DifferBuilder> diffLIst) {
+    public static String diffToStylish(List<DifferBuilder> diffLIst) {
 
         StringBuilder result = new StringBuilder("{\n");
         String unchanged = "    %s: %s\n";
