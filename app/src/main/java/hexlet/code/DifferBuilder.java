@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * builds a list of differences between 2 files
+ * builds a list of differences between 2 files.
  */
 public class DifferBuilder {
 
@@ -22,6 +22,12 @@ public class DifferBuilder {
     private Object diffCurrentValue;
     private Object diffPreviousValue;
 
+    /**
+     * @param status
+     * @param diffKey
+     * @param diffCurrentValue
+     * @param diffPreviousValue
+     */
     public DifferBuilder(Status status, String diffKey, Object diffCurrentValue, Object diffPreviousValue) {
         this.status = status;
         this.diffKey = diffKey;
@@ -29,6 +35,11 @@ public class DifferBuilder {
         this.diffPreviousValue = diffPreviousValue;
     }
 
+    /**
+     * @param status
+     * @param diffKey
+     * @param diffCurrentValue
+     */
     public DifferBuilder(Status status, String diffKey, Object diffCurrentValue) {
         this.status = status;
         this.diffKey = diffKey;
@@ -36,38 +47,68 @@ public class DifferBuilder {
 
     }
 
+    /**
+     * @return
+     */
     public Status getStatus() {
         return status;
     }
 
+    /**
+     * @param status
+     */
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    /**
+     * @return
+     */
     public String getDiffKey() {
         return diffKey;
     }
 
+    /**
+     * @param diffKey
+     */
     public void setDiffKey(String diffKey) {
         this.diffKey = diffKey;
     }
 
+    /**
+     * @return
+     */
     public Object getDiffCurrentValue() {
         return diffCurrentValue;
     }
 
+    /**
+     * @param diffCurrentValue
+     */
     public void setDiffCurrentValue(Object diffCurrentValue) {
         this.diffCurrentValue = diffCurrentValue;
     }
 
+    /**
+     * @return
+     */
     public Object getDiffPreviousValue() {
         return diffPreviousValue;
     }
 
+    /**
+     * @param diffPreviousValue
+     */
     public void setDiffPreviousValue(Object diffPreviousValue) {
         this.diffPreviousValue = diffPreviousValue;
     }
 
+    /**
+     * @param list
+     * @param map1
+     * @param map2
+     * @return
+     */
     public static List<DifferBuilder> buildDiffList(List<String> list,
                                                     Map<String, Object> map1,
                                                     Map<String, Object> map2) {
@@ -93,6 +134,9 @@ public class DifferBuilder {
         return result;
     }
 
+    /**
+     * @return
+     */
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("DifferBuilder{");

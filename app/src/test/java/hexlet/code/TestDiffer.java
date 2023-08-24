@@ -25,7 +25,7 @@ import java.util.Objects;
 
 public class TestDiffer {
 
-    ClassLoader classLoader = this.getClass().getClassLoader();
+    private ClassLoader classLoader = this.getClass().getClassLoader();
     private File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
     private File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
 
