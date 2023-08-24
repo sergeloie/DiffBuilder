@@ -45,31 +45,48 @@ public class Formatter {
             switch (element.getStatus()) {
                 case DELETED -> result.append(String.format(removed, element.getDiffKey()));
                 case ADDED -> {
-                    result.append(String.format(added, element.getDiffKey(), element.getDiffCurrentValue()));
-//                    result.append(element.getDiffCurrentValue().getClass().isPrimitive() ? element.getDiffCurrentValue() : "[complex value]");
+                    result.append(String.format(added,
+                            element.getDiffKey(),
+                            getElementPlainValue(element.getDiffCurrentValue())));
                 }
                 case UPDATED -> {
-                    result.append(String.format(updated, element.getDiffKey(), element.getDiffPreviousValue(), element.getDiffCurrentValue()));
-//                    result.append("was updated. From ");
-//                    result.append(element.getDiffPreviousValue()).append(" ");
-//                    result.append(element.getDiffCurrentValue()).append(" ");
-
-//                    result.append(element.getDiffPreviousValue().getClass().isPrimitive() ? element.getDiffPreviousValue() : "[complex value] ");
-//                    result.append(element.getDiffCurrentValue().getClass().isPrimitive() ? element.getDiffCurrentValue() : "[complex value]");
+                    result.append(String.format(updated,
+                            element.getDiffKey(),
+                            getElementPlainValue(element.getDiffPreviousValue()),
+                            getElementPlainValue(element.getDiffCurrentValue())));
                 }
                 case UNCHANGED -> { }
-
                 default -> throw new IllegalStateException("Unexpected value: " + element.getStatus());
             }
-//            result.append("\n");
-
         }
+        result.setLength(result.length() - 1);
         return result.toString();
+    }
+
+    public static boolean isComplexObject(Object object) {
+        return object == null ? false : !object.getClass().getPackageName().equals("java.lang");
+    }
+
+    public static boolean isStringObject(Object object) {
+        return object == null ? false : object.getClass().getName().equals("java.lang.String");
+    }
+
+    public static String getElementPlainValue(Object object) {
+        if (isComplexObject(object)) {
+            return "[complex value]";
+        }
+        if (isStringObject(object)) {
+            return String.format("'%s'", object);
+        } else if (object == null) {
+            return "null";
+        } else {
+            return object.toString();
+        }
     }
 
     public static String buildFormattedString(String format, List<DifferBuilder> diffLIst) {
         return switch (format) {
-            case("plain") -> plain(diffLIst);
+            case ("plain") -> plain(diffLIst);
             default -> stylish(diffLIst);
         };
     }
