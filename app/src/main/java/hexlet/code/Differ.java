@@ -18,8 +18,5 @@ public class Differ {
         List<String> sortedList = Parser.getListOfUniqueKeys(map1, map2);
         List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
         return buildFormattedString(formatOutput, diffBuildList);
-//        return stylish(diffBuildList);
-        //        return Parser.buildDiffObject(sortedList, map1, map2);
     }
-
 }

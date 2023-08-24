@@ -17,26 +17,6 @@ import static hexlet.code.ParserYAML.parseYAMLfileToMap;
 public class Parser {
 
 
-    public static String isMapsContainKey(Map<String, Object> map1, Map<String, Object> map2, String key) {
-
-        if (map1.containsKey(key) && !map2.containsKey(key)) {
-            return "MAP1";
-        }
-        if (!map1.containsKey(key) && map2.containsKey(key)) {
-            return "MAP2";
-        }
-        return "BOTH MAPS";
-    }
-
-    public static String isValuesEqual(Map<String, Object> map1, Map<String, Object> map2, String key) {
-
-        if (map1.get(key).equals(map2.get(key))) {
-            return "EQUAL";
-        }
-        return "UNEQUAL";
-    }
-
-
     public static String getFileType(File file) throws IOException {
 
         Tika defaultTika = new Tika();
