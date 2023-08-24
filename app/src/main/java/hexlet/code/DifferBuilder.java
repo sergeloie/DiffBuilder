@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * builds a list of differences between 2 files
+ */
 public class DifferBuilder {
 
     public enum Status {

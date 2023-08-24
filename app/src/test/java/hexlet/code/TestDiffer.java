@@ -26,18 +26,18 @@ import java.util.Objects;
 public class TestDiffer {
 
     ClassLoader classLoader = this.getClass().getClassLoader();
-    File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
-    File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
+    private File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
+    private File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
 
-    File file21 = new File(Objects.requireNonNull(classLoader.getResource("file21.yml")).getFile());
-    File file22 = new File(Objects.requireNonNull(classLoader.getResource("file22.yml")).getFile());
+    private File file21 = new File(Objects.requireNonNull(classLoader.getResource("file21.yml")).getFile());
+    private File file22 = new File(Objects.requireNonNull(classLoader.getResource("file22.yml")).getFile());
 
-    Map<String, Object> map11 = parseFileToMap(file11);
-    Map<String, Object> map12 = parseFileToMap(file12);
-    Map<String, Object> map21 = parseFileToMap(file21);
-    Map<String, Object> map22 = parseFileToMap(file22);
+    private Map<String, Object> map11 = parseFileToMap(file11);
+    private Map<String, Object> map12 = parseFileToMap(file12);
+    private Map<String, Object> map21 = parseFileToMap(file21);
+    private Map<String, Object> map22 = parseFileToMap(file22);
 
-    String expectedStylishLong = """
+    private String expectedStylishLong = """
                 {
                     chars1: [a, b, c]
                   - chars2: [d, e, f]
@@ -64,7 +64,7 @@ public class TestDiffer {
                   + setting3: none
                 }""";
 
-    String expectedPlainLong = """
+    private String expectedPlainLong = """
                 Property 'chars2' was updated. From [complex value] to false
                 Property 'checked' was updated. From false to true
                 Property 'default' was updated. From null to [complex value]

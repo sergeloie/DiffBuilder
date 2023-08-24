@@ -13,17 +13,21 @@ import java.util.concurrent.Callable;
 public class App implements Callable {
 
     @Parameters(paramLabel = "filepath1", description = "path to first file")
-    File file1;
+    private File file1;
 
     @Parameters(paramLabel = "filepath2", description = "path to second file")
-    File file2;
+    private File file2;
 
     @Option(names = {"-f", "--format"},
             defaultValue = "stylish",
             paramLabel = "format",
             description = "output format [default: ${DEFAULT-VALUE}]")
-    String format;
+    private String format;
 
+    /**
+     * @return returns a string of differences between 2 files
+     * @throws Exception  if files not exist
+     */
     @Override
     public String call() throws Exception {
         String filePath1 = file1.getAbsolutePath();
