@@ -37,16 +37,6 @@ public class TestDiffer {
     Map<String, Object> map21 = parseFileToMap(file21);
     Map<String, Object> map22 = parseFileToMap(file22);
 
-    String expectedStylishShort = """
-                {
-                  - follow: false
-                    host: hexlet.io
-                  - proxy: 123.234.53.22
-                  - timeout: 50
-                  + timeout: 20
-                  + verbose: true
-                }""";
-
     String expectedStylishLong = """
                 {
                     chars1: [a, b, c]
