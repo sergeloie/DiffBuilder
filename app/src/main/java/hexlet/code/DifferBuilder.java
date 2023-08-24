@@ -84,8 +84,6 @@ public class DifferBuilder {
                     result.add(new DifferBuilder(Status.UNCHANGED, key, map1.get(key)));
                 } else {
                     result.add(new DifferBuilder(Status.UPDATED, key, map2.get(key), map1.get(key)));
-//                    result.add(new DifferBuilder(Status.DELETED, key, map1.get(key)));
-//                    result.add(new DifferBuilder(Status.ADDED, key, map2.get(key)));
                 }
             }
         }
