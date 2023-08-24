@@ -75,13 +75,7 @@ public class Formatter {
         if (isComplexObject(object)) {
             return "[complex value]";
         }
-        if (isStringObject(object)) {
-            return String.format("'%s'", object);
-        } else if (object == null) {
-            return "null";
-        } else {
-            return object.toString();
-        }
+        return object == null ? "null" : (isStringObject(object) ? String.format("'%s'", object) : object.toString());
     }
 
     public static String buildFormattedString(String format, List<DifferBuilder> diffLIst) {
