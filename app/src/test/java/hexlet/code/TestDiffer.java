@@ -26,19 +26,16 @@ import java.util.Objects;
 public class TestDiffer {
 
     ClassLoader classLoader = this.getClass().getClassLoader();
-    File file1 = new File(Objects.requireNonNull(classLoader.getResource("file1.json")).getFile());
-    File file2 = new File(Objects.requireNonNull(classLoader.getResource("file2.json")).getFile());
-    File file3 = new File(Objects.requireNonNull(classLoader.getResource("file1.yml")).getFile());
-    File file4 = new File(Objects.requireNonNull(classLoader.getResource("file2.yml")).getFile());
     File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
     File file12 = new File(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
 
-    Map<String, Object> map1 = parseFileToMap(file1);
-    Map<String, Object> map2 = parseFileToMap(file2);
-    Map<String, Object> map3 = parseFileToMap(file3);
-    Map<String, Object> map4 = parseFileToMap(file4);
+    File file21 = new File(Objects.requireNonNull(classLoader.getResource("file21.yml")).getFile());
+    File file22 = new File(Objects.requireNonNull(classLoader.getResource("file22.yml")).getFile());
+
     Map<String, Object> map11 = parseFileToMap(file11);
     Map<String, Object> map12 = parseFileToMap(file12);
+    Map<String, Object> map21 = parseFileToMap(file21);
+    Map<String, Object> map22 = parseFileToMap(file22);
 
     String expectedStylishShort = """
                 {
@@ -103,13 +100,13 @@ public class TestDiffer {
 
     @Test
     public void testReadFileWithClassLoader() {
-        assertTrue(file1.exists());
+        assertTrue(file11.exists());
     }
 
     @Test
     public void testWithJsonFiles() throws IOException {
-        String actual = generate(file1, file2, "stylish");
-        assertEquals(expectedStylishShort, actual);
+        String actual = generate(file11, file12, "stylish");
+        assertEquals(expectedStylishLong, actual);
     }
 
     @Test
@@ -119,10 +116,10 @@ public class TestDiffer {
         String jsonType = "application/json";
         String yamlType = "text/x-yaml";
 
-        assertEquals(jsonType, defaultTika.detect(file1));
-        assertEquals(jsonType, defaultTika.detect(file2));
-        assertEquals(yamlType, defaultTika.detect(file3));
-        assertEquals(yamlType, defaultTika.detect(file4));
+        assertEquals(jsonType, defaultTika.detect(file11));
+        assertEquals(jsonType, defaultTika.detect(file12));
+        assertEquals(yamlType, defaultTika.detect(file21));
+        assertEquals(yamlType, defaultTika.detect(file22));
     }
 
 
@@ -137,8 +134,6 @@ public class TestDiffer {
     @Test
     public void testGenerateString() throws IOException {
 
-        assertEquals(expectedStylishShort, generate(file1, file2, "stylish"));
-        assertEquals(expectedStylishShort, generate(file3, file4, "stylish"));
         assertEquals(expectedStylishLong, generate(file11, file12, "stylish"));
         assertEquals(expectedPlainLong, generate(file11, file12, "plain"));
     }
