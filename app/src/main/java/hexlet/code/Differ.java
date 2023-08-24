@@ -1,6 +1,6 @@
 package hexlet.code;
 
-import java.io.File;
+//import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
@@ -29,10 +29,19 @@ public class Differ {
 //        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
 //        return buildFormattedString("stylish", diffBuildList);
 //    }
-    public static String generate(Path filePath1, Path filePath2, String formatOutput) throws IOException {
+//    public static String generate(Path filePath1, Path filePath2, String formatOutput) throws IOException {
+//
+//        Map<String, Object> map1 = Parser.parseFileToMap(filePath1.toFile());
+//        Map<String, Object> map2 = Parser.parseFileToMap(filePath2.toFile());
+//        List<String> sortedList = Parser.getListOfUniqueKeys(map1, map2);
+//        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
+//        return buildFormattedString(formatOutput, diffBuildList);
+//    }
 
-        Map<String, Object> map1 = Parser.parseFileToMap(filePath1.toFile());
-        Map<String, Object> map2 = Parser.parseFileToMap(filePath2.toFile());
+    public static String generate(String filePath1, String filePath2, String formatOutput) throws IOException {
+
+        Map<String, Object> map1 = Parser.parseFileToMap(Path.of(filePath1).toFile());
+        Map<String, Object> map2 = Parser.parseFileToMap(Path.of(filePath2).toFile());
         List<String> sortedList = Parser.getListOfUniqueKeys(map1, map2);
         List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
         return buildFormattedString(formatOutput, diffBuildList);
