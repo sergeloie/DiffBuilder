@@ -5,12 +5,12 @@ import hexlet.code.DifferBuilder;
 import java.util.List;
 
 public class Plain {
-    public static String diffToPlain(List<DifferBuilder> diffLIst) {
+    public static String diffToPlain(List<DifferBuilder> diffList) {
         String updated = "Property '%s' was updated. From %s to %s\n";
         String removed = "Property '%s' was removed\n";
         String added = "Property '%s' was added with value: %s\n";
         StringBuilder result = new StringBuilder();
-        for (DifferBuilder element: diffLIst) {
+        for (DifferBuilder element: diffList) {
             switch (element.getStatus()) {
                 case DELETED -> result.append(String.format(removed, element.getDiffKey()));
                 case ADDED -> {

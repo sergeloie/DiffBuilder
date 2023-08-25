@@ -5,14 +5,14 @@ import hexlet.code.DifferBuilder;
 import java.util.List;
 
 public class Stylish {
-    public static String diffToStylish(List<DifferBuilder> diffLIst) {
+    public static String diffToStylish(List<DifferBuilder> diffList) {
 
         StringBuilder result = new StringBuilder("{\n");
         String unchanged = "    %s: %s\n";
         String added = "  + %s: %s\n";
         String deleted = "  - %s: %s\n";
         String updated = deleted + added;
-        for (DifferBuilder element: diffLIst) {
+        for (DifferBuilder element: diffList) {
             switch (element.getStatus()) {
                 case UNCHANGED -> result.append(String.format(unchanged,
                         element.getDiffKey(),
