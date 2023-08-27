@@ -35,7 +35,7 @@ public class Plain {
 
     public static boolean isComplexObject(Object object) {
 //        return object == null ? false : !object.getClass().getPackageName().equals("java.lang");
-        return (object instanceof Map<?,?> || object instanceof List<?>);
+        return (object instanceof Map<?, ?> || object instanceof List<?>);
     }
 
     public static boolean isStringObject(Object object) {
@@ -45,8 +45,26 @@ public class Plain {
 
     public static String getElementPlainValue(Object object) {
 
-        return object == null ? "null"
-                : isComplexObject(object) ? "[complex value]"
-                : isStringObject(object) ? String.format("'%s'", object) : object.toString();
+//        return object == null ? "null"
+//                : isComplexObject(object) ? "[complex value]"
+//                : isStringObject(object) ? String.format("'%s'", object) : object.toString();
+
+        String result;
+
+        if (object == null) {
+            result = "null";
+        } else if (isComplexObject(object)) {
+            result = "[complex value]";
+        } else if (isStringObject(object)) {
+            result = String.format("'%s'", object);
+        } else {
+            result = object.toString();
+        }
+        return result;
+
     }
+
+
+
+
 }
