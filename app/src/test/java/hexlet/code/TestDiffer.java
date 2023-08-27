@@ -117,6 +117,9 @@ public class TestDiffer {
 
         assertEquals(expectedStylishLong, generate(file11.toPath().toString(), file12.toPath().toString(), "stylish"));
         assertEquals(expectedPlainLong, generate(file11.toPath().toString(), file12.toPath().toString(), "plain"));
+
+        assertEquals(expectedStylishLong, generate(file11.toPath().toString(), file12.toPath().toString()));
+
     }
 
 
