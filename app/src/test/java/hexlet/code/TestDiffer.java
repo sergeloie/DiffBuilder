@@ -6,17 +6,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Objects;
 
 public class TestDiffer {
 
     private ClassLoader classLoader = this.getClass().getClassLoader();
 //    private File file11 = new File(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
-//    private Path pathFile11 = Paths.get(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
+    private Path pathFile11 = Paths.get(Objects.requireNonNull(classLoader.getResource("file11.json")).getFile());
+    private Path pathFile12 = Paths.get(Objects.requireNonNull(classLoader.getResource("file12.json")).getFile());
+    private Path pathFile21 = Paths.get(Objects.requireNonNull(classLoader.getResource("file21.yml")).getFile());
+    private Path pathFile22 = Paths.get(Objects.requireNonNull(classLoader.getResource("file22.yml")).getFile());
 
-    private String stringPath11 = "/home/superadmin/java-project-71/app/build/install/app/bin/file11.json";
-    private String stringPath12 = "/home/superadmin/java-project-71/app/build/install/app/bin/file12.json";
-    private String stringPath21 = "/home/superadmin/java-project-71/app/build/install/app/bin/file21.yml";
-    private String stringPath22 = "/home/superadmin/java-project-71/app/build/install/app/bin/file22.yml";
+    private String stringPath11 = pathFile11.toString();
+    private String stringPath12 = pathFile12.toString();
+    private String stringPath21 = pathFile21.toString();
+    private String stringPath22 = pathFile22.toString();
 
     private String expectedStylishLong = """
                 {
