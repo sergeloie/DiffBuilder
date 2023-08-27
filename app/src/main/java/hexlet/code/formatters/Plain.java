@@ -3,6 +3,7 @@ package hexlet.code.formatters;
 import hexlet.code.DifferBuilder;
 
 import java.util.List;
+import java.util.Map;
 
 public class Plain {
     public static String diffToPlain(List<DifferBuilder> diffList) {
@@ -33,11 +34,13 @@ public class Plain {
     }
 
     public static boolean isComplexObject(Object object) {
-        return object == null ? false : !object.getClass().getPackageName().equals("java.lang");
+//        return object == null ? false : !object.getClass().getPackageName().equals("java.lang");
+        return (object instanceof Map<?,?> || object instanceof List<?>);
     }
 
     public static boolean isStringObject(Object object) {
-        return object == null ? false : object.getClass().getName().equals("java.lang.String");
+//        return object == null ? false : object.getClass().getName().equals("java.lang.String");
+        return object instanceof String;
     }
 
     public static String getElementPlainValue(Object object) {
