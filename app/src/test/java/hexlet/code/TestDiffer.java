@@ -8,7 +8,7 @@ import static hexlet.code.Parser.parseFileToMap;
 import static hexlet.code.formatters.Plain.isComplexObject;
 import static hexlet.code.formatters.Plain.isStringObject;
 import static hexlet.code.formatters.Stylish.diffToStylish;
-import static hexlet.code.serializers.SerializeJSON.diffToJSON;
+import static hexlet.code.formatters.SerializeJSON.diffToJSON;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

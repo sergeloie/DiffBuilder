@@ -30,7 +30,7 @@ public class Stylish {
                             element.getDiffKey(),
                             element.getDiffCurrentValue()));
                 }
-                default -> { }
+                default -> {throw new RuntimeException("Unexpected value: " + element.getStatus()); }
             }
         }
         result.append("}");

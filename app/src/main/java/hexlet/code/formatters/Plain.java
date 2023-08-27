@@ -26,7 +26,7 @@ public class Plain {
                             getElementPlainValue(element.getDiffCurrentValue())));
                 }
                 case UNCHANGED -> { }
-                default -> throw new IllegalStateException("Unexpected value: " + element.getStatus());
+                default -> throw new RuntimeException("Unexpected value: " + element.getStatus());
             }
         }
         result.setLength(result.length() - 1);
