@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * builds a list of differences between 2 files.
  */
 public class DifferBuilder {
+
+
 
     public enum Status {
         DELETED,
@@ -146,5 +149,14 @@ public class DifferBuilder {
         sb.append(", diffPreviousValue=").append(diffPreviousValue);
         sb.append('}');
         return sb.toString();
+    }
+
+    public static List<String> getListOfUniqueKeys(Map<String, Object> map1, Map<String, Object> map2) {
+
+        return Stream.concat(
+                        map1.keySet().stream(), map2.keySet().stream())
+                .distinct()
+                .sorted()
+                .toList();
     }
 }
