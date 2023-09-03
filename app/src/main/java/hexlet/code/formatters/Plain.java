@@ -11,19 +11,20 @@ public class Plain {
         String removed = "Property '%s' was removed\n";
         String added = "Property '%s' was added with value: %s\n";
         StringBuilder result = new StringBuilder();
-        for (DifferBuilder element: diffList) {
+        for (DifferBuilder element : diffList) {
             switch (element.getStatus()) {
                 case DELETED -> result.append(String.format(removed, element.getDiffKey()));
                 case ADDED -> result.append(String.format(added,
-                                element.getDiffKey(),
-                                getElementPlainValue(element.getDiffCurrentValue())));
+                        element.getDiffKey(),
+                        getElementPlainValue(element.getDiffCurrentValue())));
 
                 case UPDATED -> result.append(String.format(updated,
-                                    element.getDiffKey(),
-                                    getElementPlainValue(element.getDiffPreviousValue()),
-                                    getElementPlainValue(element.getDiffCurrentValue())));
+                        element.getDiffKey(),
+                        getElementPlainValue(element.getDiffPreviousValue()),
+                        getElementPlainValue(element.getDiffCurrentValue())));
 
-                case UNCHANGED -> { }
+                case UNCHANGED -> {
+                }
                 default -> throw new RuntimeException("Unexpected value: " + element.getStatus());
             }
         }
@@ -41,26 +42,19 @@ public class Plain {
 
     public static String getElementPlainValue(Object object) {
 
-//        return object == null ? "null"
-//                : isComplexObject(object) ? "[complex value]"
-//                : isStringObject(object) ? String.format("'%s'", object) : object.toString();
+        return isComplexObject(object) ? "[complex value]"
+                : isStringObject(object) ? String.format("'%s'", object) : String.valueOf(object);
 
-        String result;
-
-        if (object == null) {
-            result = "null";
-        } else if (isComplexObject(object)) {
-            result = "[complex value]";
-        } else if (isStringObject(object)) {
-            result = String.format("'%s'", object);
-        } else {
-            result = String.valueOf(object);
-        }
-        return result;
+//        String result;
+//
+//        if (isComplexObject(object)) {
+//            result = "[complex value]";
+//        } else if (isStringObject(object)) {
+//            result = String.format("'%s'", object);
+//        } else {
+//            result = String.valueOf(object);
+//        }
+//        return result;
 
     }
-
-
-
-
 }
