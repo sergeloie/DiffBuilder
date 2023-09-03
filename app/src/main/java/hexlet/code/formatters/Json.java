@@ -6,7 +6,7 @@ import hexlet.code.DifferBuilder;
 
 import java.util.List;
 
-public class SerializeJSON {
+public class Json {
 
     public static String diffToJSON(List<DifferBuilder> diffList) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

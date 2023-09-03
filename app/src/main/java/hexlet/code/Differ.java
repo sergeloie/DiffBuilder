@@ -1,5 +1,6 @@
 package hexlet.code;
 
+import hexlet.code.parsers.Parser;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import static hexlet.code.DifferBuilder.buildDiffList;
-import static hexlet.code.Formatter.buildFormattedString;
+import static hexlet.code.formatters.Formatter.buildFormattedString;
 
 public class Differ {
 
@@ -23,10 +24,10 @@ public class Differ {
         String fileExt1 = FilenameUtils.getExtension(String.valueOf(fullPath1));
         String fileExt2 = FilenameUtils.getExtension(String.valueOf(fullPath2));
 
-        Map<String, Object> map1 = Parser.parseToMap(fileContent1, fileExt1);
-        Map<String, Object> map2 = Parser.parseToMap(fileContent2, fileExt2);
-        List<String> sortedList = DifferBuilder.getListOfUniqueKeys(map1, map2);
-        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, map1, map2);
+        Map<String, Object> data1 = Parser.parse(fileContent1, fileExt1);
+        Map<String, Object> data2 = Parser.parse(fileContent2, fileExt2);
+        List<String> sortedList = DifferBuilder.getListOfUniqueKeys(data1, data2);
+        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, data1, data2);
         return buildFormattedString(formatOutput, diffBuildList);
     }
 
