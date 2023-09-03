@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import static hexlet.code.DataSupplier.getData;
-import static hexlet.code.DifferBuilder.buildDiffList;
+import static hexlet.code.DifferMapsToList.buildDiffList;
 import static hexlet.code.formatters.Formatter.buildFormattedString;
 
 public class Differ {
@@ -14,8 +14,7 @@ public class Differ {
 
         Map<String, Object> data1 = getData(filePath1);
         Map<String, Object> data2 = getData(filePath2);
-        List<String> sortedList = DifferBuilder.getListOfUniqueKeys(data1, data2);
-        List<DifferBuilder> diffBuildList = buildDiffList(sortedList, data1, data2);
+        List<DifferBuilder> diffBuildList = buildDiffList(data1, data2);
         return buildFormattedString(formatOutput, diffBuildList);
     }
 
