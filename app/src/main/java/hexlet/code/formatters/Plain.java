@@ -1,27 +1,27 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DifferBuilder;
+import hexlet.code.LineDifference;
 
 import java.util.List;
 import java.util.Map;
 
 public class Plain {
-    public static String diffToPlain(List<DifferBuilder> diffList) {
+    public static String format(List<LineDifference> diffList) {
         String updated = "Property '%s' was updated. From %s to %s\n";
         String removed = "Property '%s' was removed\n";
         String added = "Property '%s' was added with value: %s\n";
         StringBuilder result = new StringBuilder();
-        for (DifferBuilder element : diffList) {
+        for (LineDifference element : diffList) {
             switch (element.getStatus()) {
                 case DELETED -> result.append(String.format(removed, element.getDiffKey()));
                 case ADDED -> result.append(String.format(added,
                         element.getDiffKey(),
-                        getElementPlainValue(element.getDiffCurrentValue())));
+                        stringify(element.getDiffCurrentValue())));
 
                 case UPDATED -> result.append(String.format(updated,
                         element.getDiffKey(),
-                        getElementPlainValue(element.getDiffPreviousValue()),
-                        getElementPlainValue(element.getDiffCurrentValue())));
+                        stringify(element.getDiffPreviousValue()),
+                        stringify(element.getDiffCurrentValue())));
 
                 case UNCHANGED -> {
                 }
@@ -40,21 +40,15 @@ public class Plain {
         return object instanceof String;
     }
 
-    public static String getElementPlainValue(Object object) {
+    public static String stringify(Object object) {
 
-        return isComplexObject(object) ? "[complex value]"
-                : isStringObject(object) ? String.format("'%s'", object) : String.valueOf(object);
-
-//        String result;
-//
-//        if (isComplexObject(object)) {
-//            result = "[complex value]";
-//        } else if (isStringObject(object)) {
-//            result = String.format("'%s'", object);
-//        } else {
-//            result = String.valueOf(object);
-//        }
-//        return result;
+        if (isComplexObject(object)) {
+            return "[complex value]";
+        }
+        if (isStringObject(object)) {
+            return String.format("'%s'", object);
+        }
+        return String.valueOf(object);
 
     }
 }

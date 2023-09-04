@@ -1,18 +1,18 @@
 package hexlet.code.formatters;
 
-import hexlet.code.DifferBuilder;
+import hexlet.code.LineDifference;
 
 import java.util.List;
 
 public class Stylish {
-    public static String diffToStylish(List<DifferBuilder> diffList) {
+    public static String format(List<LineDifference> diffList) {
 
         StringBuilder result = new StringBuilder("{\n");
         String unchanged = "    %s: %s\n";
         String added = "  + %s: %s\n";
         String deleted = "  - %s: %s\n";
         String updated = deleted + added;
-        for (DifferBuilder element: diffList) {
+        for (LineDifference element: diffList) {
             switch (element.getStatus()) {
                 case UNCHANGED -> result.append(String.format(unchanged,
                         element.getDiffKey(),
@@ -23,16 +23,12 @@ public class Stylish {
                 case DELETED -> result.append(String.format(deleted,
                         element.getDiffKey(),
                         element.getDiffCurrentValue()));
-                case UPDATED -> {
-                    result.append(String.format(updated,
+                case UPDATED -> result.append(String.format(updated,
                             element.getDiffKey(),
                             element.getDiffPreviousValue(),
                             element.getDiffKey(),
                             element.getDiffCurrentValue()));
-                }
-                default -> {
-                    throw new RuntimeException("Unexpected value: " + element.getStatus());
-                }
+                default -> throw new RuntimeException("Unexpected value: " + element.getStatus());
             }
         }
         result.append("}");

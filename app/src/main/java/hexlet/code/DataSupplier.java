@@ -13,8 +13,8 @@ public class DataSupplier {
 
     public static Map<String, Object> getData(String pathToFile) throws IOException {
         Path fullPath = Paths.get(pathToFile).toAbsolutePath();
-        String fileContent = Files.readString(fullPath);
-        String fileExt = FilenameUtils.getExtension(String.valueOf(fullPath));
-        return Parser.parse(fileContent, fileExt);
+        String content = Files.readString(fullPath);
+        String extension = FilenameUtils.getExtension(String.valueOf(fullPath));
+        return Parser.parse(content, extension);
     }
 }

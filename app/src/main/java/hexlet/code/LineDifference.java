@@ -1,13 +1,9 @@
 package hexlet.code;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
-
 /**
  * builds a list of differences between 2 files.
  */
-public class DifferBuilder {
+public class LineDifference {
 
 
 
@@ -29,7 +25,7 @@ public class DifferBuilder {
      * @param diffCurrentValue
      * @param diffPreviousValue
      */
-    public DifferBuilder(Status status, String diffKey, Object diffCurrentValue, Object diffPreviousValue) {
+    public LineDifference(Status status, String diffKey, Object diffCurrentValue, Object diffPreviousValue) {
         this.status = status;
         this.diffKey = diffKey;
         this.diffCurrentValue = diffCurrentValue;
@@ -41,7 +37,7 @@ public class DifferBuilder {
      * @param diffKey
      * @param diffCurrentValue
      */
-    public DifferBuilder(Status status, String diffKey, Object diffCurrentValue) {
+    public LineDifference(Status status, String diffKey, Object diffCurrentValue) {
         this.status = status;
         this.diffKey = diffKey;
         this.diffCurrentValue = diffCurrentValue;
@@ -118,12 +114,4 @@ public class DifferBuilder {
         return sb.toString();
     }
 
-    public static List<String> getListOfUniqueKeys(Map<String, Object> map1, Map<String, Object> map2) {
-
-        return Stream.concat(
-                        map1.keySet().stream(), map2.keySet().stream())
-                .distinct()
-                .sorted()
-                .toList();
-    }
 }
