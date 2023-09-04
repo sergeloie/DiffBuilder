@@ -20,7 +20,7 @@ public class TestDiffer {
 
 
     @BeforeEach
-    void beforeEach() throws IOException {
+    final void beforeEach() throws IOException {
 
         expectedStylishLong = Files.readString(Path.of("src/test/resources/expectedStylishLong.txt"));
         expectedPlainLong = Files.readString(Path.of("src/test/resources/expectedPlainLong.txt"));
