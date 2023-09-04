@@ -1,6 +1,7 @@
 package hexlet.code;
 
 import hexlet.code.parsers.Parser;
+import hexlet.code.parsers.ParserFactory;
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.IOException;
@@ -15,6 +16,8 @@ public class DataSupplier {
         Path fullPath = Paths.get(pathToFile).toAbsolutePath();
         String content = Files.readString(fullPath);
         String extension = FilenameUtils.getExtension(String.valueOf(fullPath));
-        return Parser.parse(content, extension);
+        Parser parser = ParserFactory.createParser(extension);
+        return parser.parse(content);
+
     }
 }
