@@ -3,5 +3,6 @@
 [![Java CI](https://github.com/sergeloie/java-project-71/actions/workflows/main.yml/badge.svg)](https://github.com/sergeloie/java-project-71/actions/workflows/main.yml)
 [![Maintainability](https://api.codeclimate.com/v1/badges/2588c551e0a5d0e94009/maintainability)](https://codeclimate.com/github/sergeloie/java-project-71/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/2588c551e0a5d0e94009/test_coverage)](https://codeclimate.com/github/sergeloie/java-project-71/test_coverage)
+[![PicoCLI](https://img.shields.io/badge/PicoCLI-3.0-green.svg)](https://github.com/remkop/picocli)
 
 [![asciicast](https://asciinema.org/a/nIFczwZHx9kqxrSTDYRvG89C2.svg)](https://asciinema.org/a/nIFczwZHx9kqxrSTDYRvG89C2)
