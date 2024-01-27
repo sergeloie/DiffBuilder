@@ -1,10 +1,11 @@
 plugins {
     id 'application'
     id 'checkstyle'
-    id 'com.adarshr.test-logger' version '3.1.0'
+    id 'com.adarshr.test-logger' version '4.0.0'
     id 'se.patrikerdes.use-latest-versions' version '0.2.18'
-    id 'com.github.ben-manes.versions' version '0.42.0'
+    id 'com.github.ben-manes.versions' version '0.51.0'
     id 'jacoco'
+    id 'io.freefair.lombok' version "8.4"
 }
 
 group = 'hexlet.code'
@@ -19,24 +20,24 @@ compileJava {
 }
 
 dependencies {
-    implementation 'org.apache.commons:commons-lang3:3.12.0'
-    implementation 'info.picocli:picocli:4.7.4'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.15.2'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'info.picocli:picocli:4.7.5'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.16.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.16.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.16.1'
 
-    implementation 'org.apache.tika:tika:2.8.0'
-    implementation 'org.apache.tika:tika-core:2.8.0'
-    implementation 'org.slf4j:slf4j-nop:2.0.7'
+    implementation 'org.apache.tika:tika:3.0.0-BETA'
+    implementation 'org.apache.tika:tika-core:3.0.0-BETA'
+    implementation 'org.slf4j:slf4j-nop:2.1.0-alpha1'
 
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
 
     testImplementation(
-            'org.junit.jupiter:junit-jupiter-params:5.8.2',
+            'org.junit.jupiter:junit-jupiter-params:5.10.1',
 //            'org.slf4j:slf4j-log4j12:2.0.7',
-            'org.assertj:assertj-core:3.22.0',
+            'org.assertj:assertj-core:3.25.2',
     )
 }
 
