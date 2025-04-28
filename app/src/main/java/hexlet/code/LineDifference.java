@@ -1,6 +1,5 @@
 package hexlet.code;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,25 +8,36 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@AllArgsConstructor
 public class LineDifference {
 
     public enum Status {
         DELETED,
         ADDED,
         UNCHANGED,
-        UPDATED
+        UPDATED;
     }
 
     private Status status;
-    private String diffKey;
-    private Object diffCurrentValue;
-    private Object diffPreviousValue;
+    private String key;
+    private Object currentValue;
+    private Object previousValue;
 
-    public LineDifference(Status status, String diffKey, Object diffCurrentValue) {
+    public LineDifference(Status status,
+                          String key,
+                          Object currentValue) {
         this.status = status;
-        this.diffKey = diffKey;
-        this.diffCurrentValue = diffCurrentValue;
+        this.key = key;
+        this.currentValue = currentValue;
 
+    }
+
+    public LineDifference(Status status,
+                          String key,
+                          Object currentValue,
+                          Object previousValue) {
+        this.status = status;
+        this.key = key;
+        this.currentValue = currentValue;
+        this.previousValue = previousValue;
     }
 }

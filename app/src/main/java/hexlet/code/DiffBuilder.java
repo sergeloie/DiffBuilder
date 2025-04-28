@@ -1,9 +1,6 @@
 package hexlet.code;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Stream;
 
 public class DiffBuilder {
@@ -40,5 +37,9 @@ public class DiffBuilder {
                 .distinct()
                 .sorted()
                 .toList();
+    }
+
+    public static List<String> getDeletedKeys(Set<String> set1, Set<String> set2) {
+        return set1.stream().filter(str -> !set2.contains(str)).toList();
     }
 }
